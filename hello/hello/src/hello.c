@@ -3,6 +3,6 @@
 
 int main(int argc, const char *argv[])
 {
-    printf("Hello from KasperskyOS\n");
+    fprintf(stderr, "Hello from KasperskyOS\n");
     return EXIT_SUCCESS;
 }

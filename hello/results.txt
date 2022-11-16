@@ -76,7 +76,7 @@ System control register:
 [HAL  ] Periphery Area begin : 0xffffffffff800000
 [HAL  ] Periphery Area end : 0xffffffffffffffff
 [HAL  ] Periphery Area size : 0x0000000000800000
-[HAL  ] cpu #0 - 1288MHz
+[HAL  ] cpu #0 - 1032MHz
 [HAL  ] Cpu initialized.
 [HAL  ] Temporary area initialized.
 [HAL  ] SoC area mapped. begin: 0xffffffffff800000, size: 0x7000
@@ -182,18 +182,18 @@ CPU3 - ordinary processor
 [SMP  ] Idle thread for CPU #3 created.
 [TASK ] Scheduler interrupts initialized.
 [TASK ] GSI page initialized.
-[HAL  ] cpu #2 - 1541MHz
-[SMP  ] CPU #2 - boostrapped.
-[HAL  ] cpu #3 - 1934MHz
-[SMP  ] CPU #3 - boostrapped.
-[HAL  ] cpu #1 - 1012MHz
+[HAL  ] cpu #1 - 1036MHz
+[HAL  ] cpu #3 - 1040MHz
 [SMP  ] CPU #1 - boostrapped.
+[HAL  ] cpu #2 - 1050MHz
+[SMP  ] CPU #3 - boostrapped.
+[SMP  ] CPU #2 - boostrapped.
 [PROF ] Profiler initialized.
 [TASK ] Multitasking infrastructure initialized.
 [TIME ] Time infrastructure initialized.
 [ROFS ] Files: 3, size: 1777664 (0x001b2000).
 [ROFS ] File #00: einit            - size:   751552 (0x000b77c0)
-[ROFS ] File #01: Hello            - size:   745344 (0x000b5f80)
+[ROFS ] File #01: Hello            - size:   745232 (0x000b5f10)
 [ROFS ] File #02: ksm.module       - size:   274360 (0x00042fb8)
 [AUDIT] Starting core audit...
 [VLOG ] Virtual logging subsystem initialized.
@@ -209,6 +209,7 @@ CPU3 - ordinary processor
 [KSM  ] Security system successfully initialized.
 [INIT ] Starting 'Einit' ...
 [INIT ] Starting system worker.
+Hello from KasperskyOS
 [INIT ] System worker finished
 [INIT ] System halted...
 System halted
