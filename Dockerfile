@@ -55,11 +55,10 @@ WORKDIR /workspace
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 ENV LANGUAGE C.UTF-8
+ENV PATH="${PATH}:/opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin"
 
 RUN echo "export PS1='\u@\h \W $ '\n" >> /etc/profile
 RUN echo "export PS1='\u@\h \W $ '\n" >> /root/.bashrc
-RUN echo "export PATH=$PATH:/opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin\n" >> /etc/profile
-RUN echo "export PATH=$PATH:/opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin\n" >> /root/.bashrc
 
 # USER docker  
-ENTRYPOINT [ "/bin/bash" , "-c" , "source /etc/profile && /bin/bash" ]
+ENTRYPOINT [ "/bin/bash" , "-l" , "-c" ]
