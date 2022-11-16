@@ -1,0 +1,646 @@
+utm@debian:~/Desktop/mosquitto/mqtt_subscriber$ sudo ./cross-build.sh 
+-- The C compiler identification is GNU 9.2.1
+-- The CXX compiler identification is GNU 9.2.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin/aarch64-kos-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin/aarch64-kos-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Cross compiling to: KOS-GNU-static 1.1.0.356
+-- Processor: aarch64
+-- Compiler: GCC
+-- CMake generates Unix Makefiles
+-- Found vfs: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include;/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "2.4.0") found components: ENTITY 
+-- Found mosquitto: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include  found components: CXX_LIB 
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Check if compiler accepts -pthread
+-- Check if compiler accepts -pthread - yes
+-- Found Threads: TRUE  
+-- Found kdf: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "0.0.1")  
+-- Found blkdev: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "0.0.1") found components: CLASS_LIB 
+-- Found blk_stream: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "0.0.1")  
+-- Found phy: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "0.0.2")  
+-- Found rpi_mbox:  (found version "0.0.1")  
+-- Found bsp: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "0.0.1") found components: CLIENT_LIB 
+-- Found gpio: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "0.1.1") found components: CLIENT_LIB 
+-- Found dnet: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "0.0.1") found components: CLASS_LIB 
+-- Found rump: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "8.99.39") found components: LIB 
+-- Found vfs: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include;/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include;/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "2.4.0")  
+-- Found vfs: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include;/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include;/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include;/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "2.4.0") found components: ENTITY 
+-- Found rump: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "8.99.39") found components: DHCPCD_ENTITY 
+-- Found ramdisk: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "1.0.0") found components: ENTITY 
+-- Found sdcard: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include (found version "1.0.1") found components: ENTITY 
+-- Found precompiled_vfs: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/include   
+-- Use SD card to mount root filesystem - OFF
+-- IMAGE_BINARY_DIR_BIN: /home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit
+CMake Warning at /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/share/cmake/Modules/platform/image2.cmake:303 (find_package):
+  By not providing "Findblob_container.cmake" in CMAKE_MODULE_PATH this                                                                    
+  project has asked CMake to find a package configuration file provided by                                                                 
+  "blob_container", but CMake did not find one.                                                                                            
+                                                                                                                                           
+  Could not find a package configuration file provided by "blob_container"                                                                 
+  with any of the following names:                                                                                                         
+                                                                                                                                           
+    blob_containerConfig.cmake                                                                                                             
+    blob_container-config.cmake                                                                                                            
+                                                                                                                                           
+  Add the installation prefix of "blob_container" to CMAKE_PREFIX_PATH or set                                                              
+  "blob_container_DIR" to a directory containing one of the above files.  If                                                               
+  "blob_container" provides a separate development package or SDK, be sure it                                                              
+  has been installed.                                                                                                                      
+Call Stack (most recent call first):                                                                                                       
+  /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/share/cmake/Modules/platform/image.cmake:617 (__init_configure_yaml_and_security_files)                                                                                                                                      
+  /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/share/cmake/Modules/platform/image.cmake:1455 (__build_kos_image)                 
+  einit/CMakeLists.txt:88 (build_kos_hw_image)                                                                                             
+                                                                                                                                           
+                                                                                                                                           
+-- Building image without aboot files
+-- IMAGE_BINARY_DIR_BIN: /home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit
+CMake Warning at /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/share/cmake/Modules/platform/image2.cmake:303 (find_package):
+  By not providing "Findblob_container.cmake" in CMAKE_MODULE_PATH this                                                                    
+  project has asked CMake to find a package configuration file provided by                                                                 
+  "blob_container", but CMake did not find one.                                                                                            
+                                                                                                                                           
+  Could not find a package configuration file provided by "blob_container"                                                                 
+  with any of the following names:                                                                                                         
+                                                                                                                                           
+    blob_containerConfig.cmake                                                                                                             
+    blob_container-config.cmake                                                                                                            
+                                                                                                                                           
+  Add the installation prefix of "blob_container" to CMAKE_PREFIX_PATH or set                                                              
+  "blob_container_DIR" to a directory containing one of the above files.  If                                                               
+  "blob_container" provides a separate development package or SDK, be sure it                                                              
+  has been installed.                                                                                                                      
+Call Stack (most recent call first):                                                                                                       
+  /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/share/cmake/Modules/platform/image.cmake:605 (__init_configure_yaml_and_security_files)                                                                                                                                      
+  /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/share/cmake/Modules/platform/image.cmake:1449 (__build_kos_image)                 
+  einit/CMakeLists.txt:97 (build_kos_qemu_image)                                                                                           
+                                                                                                                                           
+                                                                                                                                           
+-- Building image without aboot files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/utm/Desktop/mosquitto/mqtt_subscriber/build
+[  6%] Generating EinitQemu-kss/Einit.edl.h
+[  6%] Built target EinitQemu-edl
+[ 12%] Generating _headers_/mosquitto/Subscriber.edl
+[ 18%] Generating Subscriber.edl.h
+[ 25%] Generating _headers_/mosquitto/Subscriber.edl.h
+[ 25%] Built target subscriber_edl_files
+[ 31%] Building CXX object subscriber/CMakeFiles/Subscriber.dir/src/main.cpp.o
+[ 37%] Building CXX object subscriber/CMakeFiles/Subscriber.dir/src/subscriber.cpp.o
+[ 43%] Linking CXX executable Subscriber
+[ 43%] Built target Subscriber
+[ 50%] Generating EinitQemu-kss/EinitQemu.c
+[ 56%] Building C object einit/CMakeFiles/EinitQemu.dir/EinitQemu-kss/EinitQemu.c.o
+[ 62%] Linking C executable EinitQemu
+[ 62%] Built target EinitQemu
+[ 62%] Built target EinitQemu-kss-entities-built
+[ 68%] Generating EinitQemu-kss/ksm.module, EinitQemu-kss/security.psl.audit.c
+[ 68%] Built target EinitQemu-kss-makekss-output
+[ 68%] Built target ramdisk0.img
+[ 68%] Built target sdcard0.img
+Consolidate compiler generated dependencies of target kos-qemu-image
+[ 75%] Generating sdcard0.img
+[prepare_hdd_img.sh] Script is executed from:
+[prepare_hdd_img.sh]     /opt/KasperskyOS-Community-Edition-1.1.0.356/common/prepare_hdd_img.sh
+[prepare_hdd_img.sh] as:
+[prepare_hdd_img.sh]     prepare_hdd_img.sh -d /home/utm/Desktop/mosquitto/mqtt_subscriber/build/hdd -img sdcard0.img -f fat32
+[prepare_hdd_img.sh] Parsing parameters:
+[prepare_hdd_img.sh]      part_dir_path[0]=/home/utm/Desktop/mosquitto/mqtt_subscriber/build/hdd
+[prepare_hdd_img.sh]      image_name=sdcard0.img
+[prepare_hdd_img.sh]      part_format[0]=fat32
+[prepare_hdd_img.sh] Looking for binary 'parted'
+[prepare_hdd_img.sh] Program 'parted' found as '/usr/sbin/parted'
+[prepare_hdd_img.sh] Looking for binary 'mkdosfs'
+[prepare_hdd_img.sh] Program 'mkdosfs' found as '/usr/sbin/mkdosfs'
+[prepare_hdd_img.sh] Looking for binary 'mke2fs'
+[prepare_hdd_img.sh] Program 'mke2fs' found as '/usr/sbin/mke2fs'
+[prepare_hdd_img.sh] Looking for binary 'mke2fs'
+[prepare_hdd_img.sh] Program 'mke2fs' found as '/usr/sbin/mke2fs'
+[prepare_hdd_img.sh] Looking for binary 'mke2fs'
+[prepare_hdd_img.sh] Program 'mke2fs' found as '/usr/sbin/mke2fs'
+
+[prepare_hdd_img.sh] Generating HDD image...
++ /usr/sbin/parted -s sdcard0.img mktable msdos
++ debug_off
++ '[' y == y ']'
++ set +x
+[prepare_hdd_img.sh] INFO: If you are using parted below version 3.3,
+[prepare_hdd_img.sh]       you may see a permission error before this line.
+[prepare_hdd_img.sh]       This behaviour was fixed in 3.3, but also in <3.3
+[prepare_hdd_img.sh]       it did not cause any real problems, so you can ignore it.
+[prepare_hdd_img.sh] Creating sdcard0.img partition from 2048s to 100% of fat32
++ /usr/sbin/parted -s -a optimal sdcard0.img mkpart p fat32 2048s 100%
++ debug_off
++ '[' y == y ']'
++ set +x
+[prepare_hdd_img.sh] INFO: If you are using parted below version 3.3,
+[prepare_hdd_img.sh]       you may see a permission error before this line.
+[prepare_hdd_img.sh]       This behaviour was fixed in 3.3, but also in <3.3
+[prepare_hdd_img.sh]       it did not cause any real problems, so you can ignore it.
++ /usr/sbin/parted sdcard0.img 'unit B print'
+Model:  (file)
+Disk /home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/sdcard0.img: 52428800B
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start     End        Size       Type     File system  Flags
+ 1      1048576B  52428799B  51380224B  primary               lba
+
++ debug_off
++ '[' y == y ']'
++ set +x
+[prepare_hdd_img.sh] INFO: If you are using parted below version 3.3,
+[prepare_hdd_img.sh]       you may see a permission error before this line.
+[prepare_hdd_img.sh]       This behaviour was fixed in 3.3, but also in <3.3
+[prepare_hdd_img.sh]       it did not cause any real problems, so you can ignore it.
+100352+0 records in
+100352+0 records out
+51380224 bytes (51 MB, 49 MiB) copied, 0.71793 s, 71.6 MB/s
+[prepare_hdd_img.sh] Cleanup... 
+
+[prepare_hdd_img.sh] Your HDD image is ready ('sdcard0.img')!
+[prepare_hdd_img.sh] Now you can use it with QEMU (i.e. '-hda sdcard0.img')
+[ 81%] Generating ramdisk0.img
+[prepare_hdd_img.sh] Script is executed from:
+[prepare_hdd_img.sh]     /opt/KasperskyOS-Community-Edition-1.1.0.356/common/prepare_hdd_img.sh
+[prepare_hdd_img.sh] as:
+[prepare_hdd_img.sh]     prepare_hdd_img.sh -d /home/utm/Desktop/mosquitto/mqtt_subscriber/build/hdd -img ramdisk0.img -f ext4 -s 128
+[prepare_hdd_img.sh] Parsing parameters:
+[prepare_hdd_img.sh]      part_dir_path[0]=/home/utm/Desktop/mosquitto/mqtt_subscriber/build/hdd
+[prepare_hdd_img.sh]      image_name=ramdisk0.img
+[prepare_hdd_img.sh]      part_format[0]=ext4
+[prepare_hdd_img.sh]      hdd_size_mb=128
+[prepare_hdd_img.sh] Looking for binary 'parted'
+[prepare_hdd_img.sh] Program 'parted' found as '/usr/sbin/parted'
+[prepare_hdd_img.sh] Looking for binary 'mke2fs'
+[prepare_hdd_img.sh] Program 'mke2fs' found as '/usr/sbin/mke2fs'
+[prepare_hdd_img.sh] Looking for binary 'mke2fs'
+[prepare_hdd_img.sh] Program 'mke2fs' found as '/usr/sbin/mke2fs'
+[prepare_hdd_img.sh] Looking for binary 'mke2fs'
+[prepare_hdd_img.sh] Program 'mke2fs' found as '/usr/sbin/mke2fs'
+[prepare_hdd_img.sh] Looking for binary 'mke2fs'
+[prepare_hdd_img.sh] Program 'mke2fs' found as '/usr/sbin/mke2fs'
+
+[prepare_hdd_img.sh] Generating HDD image...
++ /usr/sbin/parted -s ramdisk0.img mktable msdos
++ debug_off
++ '[' y == y ']'
++ set +x
+[prepare_hdd_img.sh] INFO: If you are using parted below version 3.3,
+[prepare_hdd_img.sh]       you may see a permission error before this line.
+[prepare_hdd_img.sh]       This behaviour was fixed in 3.3, but also in <3.3
+[prepare_hdd_img.sh]       it did not cause any real problems, so you can ignore it.
+[prepare_hdd_img.sh] Creating ramdisk0.img partition from 2048s to 100% of ext4
++ /usr/sbin/parted -s -a optimal ramdisk0.img mkpart p ext4 2048s 100%
++ debug_off
++ '[' y == y ']'
++ set +x
+[prepare_hdd_img.sh] INFO: If you are using parted below version 3.3,
+[prepare_hdd_img.sh]       you may see a permission error before this line.
+[prepare_hdd_img.sh]       This behaviour was fixed in 3.3, but also in <3.3
+[prepare_hdd_img.sh]       it did not cause any real problems, so you can ignore it.
++ /usr/sbin/parted ramdisk0.img 'unit B print'
+Model:  (file)
+Disk /home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/ramdisk0.img: 134217728B
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start     End         Size        Type     File system  Flags
+ 1      1048576B  134217727B  133169152B  primary
+
++ debug_off
++ '[' y == y ']'
++ set +x
+[prepare_hdd_img.sh] INFO: If you are using parted below version 3.3,
+[prepare_hdd_img.sh]       you may see a permission error before this line.
+[prepare_hdd_img.sh]       This behaviour was fixed in 3.3, but also in <3.3
+[prepare_hdd_img.sh]       it did not cause any real problems, so you can ignore it.
+mke2fs 1.44.5 (15-Dec-2018)
+Extents are not enabled.  The file extent tree can be checksummed, whereas block maps cannot.  Not enabling extents reduces the coverage of metadata checksumming.  Pass -O extents to rectify.
+64-bit filesystem support is not enabled.  The larger fields afforded by this feature enable full-strength checksumming.  Pass -O 64bit to rectify.
+Discarding device blocks: done                            
+Creating filesystem with 130048 1k blocks and 32512 inodes
+Filesystem UUID: f738b02f-fc07-477b-966d-bb8083b726d0
+Superblock backups stored on blocks: 
+        8193, 24577, 40961, 57345, 73729
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (4096 blocks): done
+Copying files into the device: done
+Writing superblocks and filesystem accounting information: done 
+
+260096+0 records in
+260096+0 records out
+133169152 bytes (133 MB, 127 MiB) copied, 1.84512 s, 72.2 MB/s
+[prepare_hdd_img.sh] Cleanup... 
+
+[prepare_hdd_img.sh] Your HDD image is ready ('ramdisk0.img')!
+[prepare_hdd_img.sh] Now you can use it with QEMU (i.e. '-hda ramdisk0.img')
+[ 87%] Generating KasperskyOS image: /home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/kos-qemu-image
+/opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin/aarch64-kos-gcc
+Checking root directory.. /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos
+Checking entity: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/sbin/ntpd... ok
+Checking entity: /home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/sdcard0.img... ok
+Checking entity: /home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/ramdisk0.img... ok
+Checking entity: /home/utm/Desktop/mosquitto/mqtt_subscriber/build/subscriber/Subscriber... ok
+Checking entity: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/VfsNet... ok
+Checking entity: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/dhcpcd_entity... ok
+Checking entity: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/VfsRamFs... ok
+Checking entity: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/bsp_qemu... ok
+Checking entity: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/gpio_qemu... ok
+Checking entity: /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/ramdisk... ok
+Checking entity: /home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/EinitQemu-kss/ksm.module... ok
+Checking linker.. /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin/aarch64-kos-gcc
+Checking assembler.. /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin/aarch64-kos-gcc
+Checking objdump.. /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin/aarch64-kos-objdump
+Checking readelf.. /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin/aarch64-kos-readelf
+Checking piggy asm.. /tmp/tmp.DBZTKFCnUy
+Checking piggy obj.. /tmp/tmp.7KlIbVu2SN
+.section .romfs, "w", %progbits
+__romfs_Base:
+.long 12
+# [File #0] 'einit', path: '/home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/EinitQemu'
+.long __file0_Name - __romfs_Base
+.long __file0_DataBegin - __romfs_Base
+.long __file0_DataEnd - __file0_DataBegin
+# [File #1] 'ntpd', path: '/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/sbin/ntpd'
+.long __file1_Name - __romfs_Base
+.long __file1_DataBegin - __romfs_Base
+.long __file1_DataEnd - __file1_DataBegin
+# [File #2] 'sdcard0.img', path: '/home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/sdcard0.img'
+.long __file2_Name - __romfs_Base
+.long __file2_DataBegin - __romfs_Base
+.long __file2_DataEnd - __file2_DataBegin
+# [File #3] 'ramdisk0.img', path: '/home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/ramdisk0.img'
+.long __file3_Name - __romfs_Base
+.long __file3_DataBegin - __romfs_Base
+.long __file3_DataEnd - __file3_DataBegin
+# [File #4] 'Subscriber', path: '/home/utm/Desktop/mosquitto/mqtt_subscriber/build/subscriber/Subscriber'
+.long __file4_Name - __romfs_Base
+.long __file4_DataBegin - __romfs_Base
+.long __file4_DataEnd - __file4_DataBegin
+# [File #5] 'VfsNet', path: '/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/VfsNet'
+.long __file5_Name - __romfs_Base
+.long __file5_DataBegin - __romfs_Base
+.long __file5_DataEnd - __file5_DataBegin
+# [File #6] 'dhcpcd_entity', path: '/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/dhcpcd_entity'
+.long __file6_Name - __romfs_Base
+.long __file6_DataBegin - __romfs_Base
+.long __file6_DataEnd - __file6_DataBegin
+# [File #7] 'VfsRamFs', path: '/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/VfsRamFs'
+.long __file7_Name - __romfs_Base
+.long __file7_DataBegin - __romfs_Base
+.long __file7_DataEnd - __file7_DataBegin
+# [File #8] 'bsp_qemu', path: '/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/bsp_qemu'
+.long __file8_Name - __romfs_Base
+.long __file8_DataBegin - __romfs_Base
+.long __file8_DataEnd - __file8_DataBegin
+# [File #9] 'gpio_qemu', path: '/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/gpio_qemu'
+.long __file9_Name - __romfs_Base
+.long __file9_DataBegin - __romfs_Base
+.long __file9_DataEnd - __file9_DataBegin
+# [File #10] 'ramdisk', path: '/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/ramdisk'
+.long __file10_Name - __romfs_Base
+.long __file10_DataBegin - __romfs_Base
+.long __file10_DataEnd - __file10_DataBegin
+# [File #11] 'ksm.module', path: '/home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/EinitQemu-kss/ksm.module'
+.long __file11_Name - __romfs_Base
+.long __file11_DataBegin - __romfs_Base
+.long __file11_DataEnd - __file11_DataBegin
+__file0_Name:
+.asciz "einit"
+__file1_Name:
+.asciz "ntpd"
+__file2_Name:
+.asciz "sdcard0.img"
+__file3_Name:
+.asciz "ramdisk0.img"
+__file4_Name:
+.asciz "Subscriber"
+__file5_Name:
+.asciz "VfsNet"
+__file6_Name:
+.asciz "dhcpcd_entity"
+__file7_Name:
+.asciz "VfsRamFs"
+__file8_Name:
+.asciz "bsp_qemu"
+__file9_Name:
+.asciz "gpio_qemu"
+__file10_Name:
+.asciz "ramdisk"
+__file11_Name:
+.asciz "ksm.module"
+.p2align 12
+__file0_DataBegin:
+.incbin "/home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/EinitQemu"
+__file0_DataEnd:
+.p2align 12
+__file1_DataBegin:
+.incbin "/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/sbin/ntpd"
+__file1_DataEnd:
+.p2align 12
+__file2_DataBegin:
+.incbin "/home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/sdcard0.img"
+__file2_DataEnd:
+.p2align 12
+__file3_DataBegin:
+.incbin "/home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/ramdisk0.img"
+__file3_DataEnd:
+.p2align 12
+__file4_DataBegin:
+.incbin "/home/utm/Desktop/mosquitto/mqtt_subscriber/build/subscriber/Subscriber"
+__file4_DataEnd:
+.p2align 12
+__file5_DataBegin:
+.incbin "/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/VfsNet"
+__file5_DataEnd:
+.p2align 12
+__file6_DataBegin:
+.incbin "/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/dhcpcd_entity"
+__file6_DataEnd:
+.p2align 12
+__file7_DataBegin:
+.incbin "/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/VfsRamFs"
+__file7_DataEnd:
+.p2align 12
+__file8_DataBegin:
+.incbin "/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/bsp_qemu"
+__file8_DataEnd:
+.p2align 12
+__file9_DataBegin:
+.incbin "/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/gpio_qemu"
+__file9_DataEnd:
+.p2align 12
+__file10_DataBegin:
+.incbin "/opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/bin/ramdisk"
+__file10_DataEnd:
+.p2align 12
+__file11_DataBegin:
+.incbin "/home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/EinitQemu-kss/ksm.module"
+__file11_DataEnd:
+.p2align 12
+Assembling piggy file:  ... /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin/aarch64-kos-gcc  -x assembler -c  -o /tmp/tmp.7KlIbVu2SN /tmp/tmp.DBZTKFCnUy
+ok /tmp/tmp.7KlIbVu2SN
+Generating romfs file...
+Linking image: /home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/kos-qemu-image ... /opt/KasperskyOS-Community-Edition-1.1.0.356/toolchain/bin/aarch64-kos-gcc -nostdlib -no-pie -o /home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/kos-qemu-image -T /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/../libexec/aarch64-kos/kos-qemu.ld -Wl,-Map=/home/utm/Desktop/mosquitto/mqtt_subscriber/build/einit/kos-qemu-image.map /opt/KasperskyOS-Community-Edition-1.1.0.356/sysroot-aarch64-kos/../libexec/aarch64-kos/kos-qemu /tmp/tmp.7KlIbVu2SN -lgcc
+ok
+Generating debug symbols file...
+Generating binary image...
+Generating stripped image...
+[ 93%] Built target kos-qemu-image
+[100%] Running QEMU with KasperskyOS image...
+WARNING: Image format was not specified for 'sdcard0.img' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+[BOOT ] Starting...
+[BOOT ] Setting up arch flags...
+[BOOT ] Preparing memory...
+[BOOT ] Preparing Flattened Device Tree info...
+[BOOT ] Preparing loader info...
+[BOOT ] Preparing ROMFS...
+[BOOT ] Preparing KasperskyOS kernel...
+[BOOT ] Preparing trampoline to kernel...
+[BOOT ] Preparing page table...
+[BOOT ] Preparing modules...
+[BOOT ] Freeing loader memory...
+[BOOT ] Dump physical memory map
+[BOOT ] Starting KasperskyOS...
+[HAL  ] Exceptions initialized
+
+Loading:
+ _  __                             _           ___  ____
+| |/ /__ _ ___ _ __   ___ _ __ ___| | ___   _ / _ \/ ___|
+| ' // _` / __| '_ \ / _ \ '__/ __| |/ / | | | | | \___ \
+| . \ (_| \__ \ |_) |  __/ |  \__ \   <| |_| | |_| |___) |
+|_|\_\__,_|___/ .__/ \___|_|  |___/_|\_\\__, |\___/|____/
+              |_|                       |___/
+
+
+Built on:   Oct 12 2022 01:25:33
+Board:      vexpress_qemu
+SoC:        v2pca15
+ARCH:       arm64
+Git hash:   a110356d7f99c955756f68d82baac26681918245-dirty
+
+
+Found CPU: ARMv8
+System control register:
+        Instruction cache: enabled
+        Data cache: enabled
+[HAL  ] Internal PFN-allocator initiated.
+[HAL  ] Private Area begin : 0x0000000000001000
+[HAL  ] Private Area end : 0x00007f7fffffffff
+[HAL  ] Private Area size : 0x00007f7ffffff000
+[HAL  ] Shared Area begin : 0xffff808000000000
+[HAL  ] Shared Area end  : 0xffffffffffffffff
+[HAL  ] Shared Area size : 0x00007f8000000000
+[HAL  ] PTE Table Area begin : 0xffff800000000000
+[HAL  ] PTE Table Area end : 0xffff807fffffffff
+[HAL  ] PTE Table Area size : 0x0000008000000000
+[HAL  ] Kernel Area begin : 0xffff808000000000
+[HAL  ] Kernel Area end  : 0xfffffffffcffffff
+[HAL  ] Kernel Area size : 0x00007f7ffd000000
+[HAL  ] Internal Area begin : 0xffffffffff400000
+[HAL  ] Internal Area end : 0xffffffffffffffff
+[HAL  ] Internal Area size : 0x0000000000c00000
+[HAL  ] Temporary Area begin : 0xffffffffff400000
+[HAL  ] Temporary Area end : 0xffffffffff485fff
+[HAL  ] Temporary Area size : 0x0000000000086000
+[HAL  ] Periphery Area begin : 0xffffffffff800000
+[HAL  ] Periphery Area end : 0xffffffffffffffff
+[HAL  ] Periphery Area size : 0x0000000000800000
+[HAL  ] cpu #0 - 1161MHz
+[HAL  ] Cpu initialized.
+[HAL  ] Temporary area initialized.
+[HAL  ] SoC area mapped. begin: 0xffffffffff800000, size: 0x7000
+[HAL  ] Mmu initialized.
+[HAL  ] WXN protection enabled.
+[HAL  ] Zero space initialized.
+[HAL  ] Found GICv1 with 160 interrupts.
+[HAL  ] Interrupts initiated.
+[HAL  ] Generic Timer found.
+[HAL  ] Bootstrap Processor's ID - 0
+CPU0 - boot strap processor
+CPU1 - ordinary processor
+CPU2 - ordinary processor
+CPU3 - ordinary processor
+[HAL  ] Hardware Abstraction Layer successfully initialized.
+[INIT ] Starting core...
+[MM   ] Max pfns         : 0x0000001000000000
+[MM   ] Max kernel VAD   : 0x0000100000000000
+[MM   ] Max user VAD     : 0x0000400000000000
+[MM   ] Max buddy order  : 0x0000000000000010
+[MM   ] PageInfo size    : 0x0000000000000020
+[MM   ] Pfn DB begin     : 0xffffc00005000000
+[MM   ] Pfn DB end       : 0xffffc40004ffffff
+[MM   ] Pfn DB size      : 0x0000040000000000
+[MM   ] Kmalloc begin    : 0xffffc40005000000
+[MM   ] Kmalloc end      : 0xffffc40008ffffff
+[MM   ] Kmalloc size     : 0x0000000004000000
+[MM   ] Kernel VAD begin : 0xffff808000000000
+[MM   ] Kernel VAD end   : 0xfffffffffcffffff
+[MM   ] Kernel VAD size  : 0x00007f7ffd000000
+[MM   ] User VAD begin   : 0x0000000000001000
+[MM   ] User VAD end     : 0x00007f7fffffffff
+[MM   ] User VAD size    : 0x00007f7ffffff000
+[MM   ] PFN range #01[__x] begin : 0x0000000000080000
+[MM   ] PFN range #01[__x] end : 0x000000000008004b
+[MM   ] PFN range #01[__x] size : 0x000000000000004c
+[MM   ] PFN range #02[r__] begin : 0x000000000008004c
+[MM   ] PFN range #02[r__] end : 0x0000000000080055
+[MM   ] PFN range #02[r__] size : 0x000000000000000a
+[MM   ] PFN range #03[___] begin : 0x0000000000080056
+[MM   ] PFN range #03[___] end : 0x0000000000080057
+[MM   ] PFN range #03[___] size : 0x0000000000000002
+[MM   ] PFN range #04[rw_] begin : 0x0000000000080058
+[MM   ] PFN range #04[rw_] end : 0x00000000000800be
+[MM   ] PFN range #04[rw_] size : 0x0000000000000067
+[MM   ] PFN range #05[rw_] begin : 0x00000000000800bf
+[MM   ] PFN range #05[rw_] end : 0x00000000000800c9
+[MM   ] PFN range #05[rw_] size : 0x000000000000000b
+[MM   ] PFN range #06[rwx] begin : 0x00000000000800ca
+[MM   ] PFN range #06[rwx] end : 0x00000000000801c8
+[MM   ] PFN range #06[rwx] size : 0x00000000000000ff
+[MM   ] PFN range #07[rwx] begin : 0x00000000000801c9
+[MM   ] PFN range #07[rwx] end : 0x000000000008200b
+[MM   ] PFN range #07[rwx] size : 0x0000000000001e43
+[MM   ] PFN range #08[__x] begin : 0x000000000008200c
+[MM   ] PFN range #08[__x] end : 0x000000000008200c
+[MM   ] PFN range #08[__x] size : 0x0000000000000001
+[MM   ] PFN range #09[rwx] begin : 0x000000000008200d
+[MM   ] PFN range #09[rwx] end : 0x000000000008207f
+[MM   ] PFN range #09[rwx] size : 0x0000000000000073
+[MM   ] PFN range #10[rwx] begin : 0x0000000000082080
+[MM   ] PFN range #10[rwx] end : 0x000000000008dfdd
+[MM   ] PFN range #10[rwx] size : 0x000000000000bf5e
+[MM   ] PFN range #11[rwx] begin : 0x000000000008dfde
+[MM   ] PFN range #11[rwx] end : 0x00000000000dffff
+[MM   ] PFN range #11[rwx] size : 0x0000000000052022
+[MM   ] Main range mapped begin : 0xffffc00006000000
+[MM   ] Main range mapped end : 0xffffc00006bfffff
+[MM   ] Main range mapped size : 0x0000000000c00000
+[MM   ] PFN DB size: 12288 KB
+[MM   ] PFN database created.
+[MM   ] Add PFN range begin : 0x0000000080dcf000
+[MM   ] Add PFN range end : 0x000000008200bfff
+[MM   ] Add PFN range size : 0x000000000123d000
+[MM   ] Add PFN range begin : 0x000000008200d000
+[MM   ] Add PFN range end : 0x000000008207ffff
+[MM   ] Add PFN range size : 0x0000000000073000
+[MM   ] Add PFN range begin : 0x000000008dfde000
+[MM   ] Add PFN range end : 0x00000000dfffffff
+[MM   ] Add PFN range size : 0x0000000052022000
+[MM   ] Atomic buddy object created (8 MB).
+[MM   ] Atomic PFN allocator initialized.
+[MM   ] kalloc allocator created.
+[MM   ] kmalloc/kfree initialized.
+[MM   ] Memory Manager successfully initialized.
+[PROF ] Profiler statistics initialized.
+[VMM  ] #PF handler was installed.
+[SMP  ] Initializing per-CPU areas...
+[SMP  ] per-CPU area size: 8320
+[SMP  ] full per-CPU areas size: 36864
+[UID  ] Uid allocator initialized.
+[SID  ] Sid allocator initialized.
+[IO   ] Initialize MMIO subsystem.
+[IO   ] Initialize DMA subsystem.
+[IO   ] Hardware interrupts successfully initialized.
+[IO   ] Resources registry initialized.
+[VMM  ] System address space initialized.
+[VMM  ] Internal VMM areas initialized.
+[TASK ] Task infrastructure initialized.
+[SMP  ] Idle thread for CPU #0 created.
+[SMP  ] Idle thread for CPU #1 created.
+[SMP  ] Idle thread for CPU #2 created.
+[SMP  ] Idle thread for CPU #3 created.
+[TASK ] Scheduler interrupts initialized.
+[TASK ] GSI page initialized.
+[HAL  ] cpu #1 - 1348MHz
+[SMP  ] CPU #1 - boostrapped.
+[HAL  ] cpu #2 - 1953MHz
+[HAL  ] cpu #3 - 2041MHz
+[SMP  ] CPU #2 - boostrapped.
+[SMP  ] CPU #3 - boostrapped.
+[PROF ] Profiler initialized.
+[TASK ] Multitasking infrastructure initialized.
+[TIME ] Time infrastructure initialized.
+[ROFS ] Files: 12, size: 200663040 (0x0bf5e000).
+[ROFS ] File #00: einit            - size:   775344 (0x000bd4b0)
+[ROFS ] File #01: ntpd             - size:  1470904 (0x001671b8)
+[ROFS ] File #02: sdcard0.img      - size: 52428800 (0x03200000)
+[ROFS ] File #03: ramdisk0.img     - size: 134217728 (0x08000000)
+[ROFS ] File #04: Subscriber       - size:  2815512 (0x002af618)
+[ROFS ] File #05: VfsNet           - size:  3732544 (0x0038f440)
+[ROFS ] File #06: dhcpcd_entity    - size:  1108304 (0x0010e950)
+[ROFS ] File #07: VfsRamFs         - size:  1150536 (0x00118e48)
+[ROFS ] File #08: bsp_qemu         - size:   589344 (0x0008fe20)
+[ROFS ] File #09: gpio_qemu        - size:   657680 (0x000a0910)
+[ROFS ] File #10: ramdisk          - size:   658112 (0x000a0ac0)
+[ROFS ] File #11: ksm.module       - size:  1035264 (0x000fcc00)
+[AUDIT] Starting core audit...
+[VLOG ] Virtual logging subsystem initialized.
+[VMM  ] Virtual Memory Manager service initialized.
+[IO   ] I/O subsystem successfully initialized.
+[FS   ] File System Manager successfully initialized.
+[XHCI ] XHCIDBG service initialized.
+[CM   ] Connection Manager successfully initialized.
+[KSM  ] Module: 'ksm.module' loaded.
+[KSM  ] Audit log created.
+[KSM  ] Module: 'ksm.module' initialized.
+[KSM  ] Server: 'kl.core.Core' executed.
+[KSM  ] Security system successfully initialized.
+[INIT ] Starting 'Einit' ...
+[INIT ] Starting system worker.
+[2022-11-16T15:45:59.585][Info][kl.drivers.BSP][33:34][BSPSR] Server starting.
+[2022-11-16T15:46:03.475][Info][kl.drivers.RAMDisk][21:22][BLKDEVSR] Ramdisk server start.
+[2022-11-16T15:46:56.285][Info][kl.VfsRamFs][39:40][NS] Can't connect with Name Server.
+[2022-11-16T15:46:56.514][Info][kl.VfsRamFs][39:40][BLKDEVCL] Start client initialization.
+[2022-11-16T15:46:56.660][Info][kl.VfsRamFs][39:40][BLKDEVCL] Discovered static channel to server 'kl.drivers.RAMDisk', endpoint 'kl.drivers.RAMDisk.ramdisk'.
+[2022-11-16T15:46:56.777][Info][kl.VfsRamFs][39:40][BLKDEVCL] Connection with server 'kl.drivers.RAMDisk' established.
+[2022-11-16T15:48:00.590][Info][kl.VfsNet][45:46][NS] Can't connect with Name Server.
+[Info][kl.VfsNet][crt0-common.c:init_vfs_backend:567][CRT0] _vfs_fs = _vfs_net = env(server:kl.VfsNet)
+entropy: ready
+[VfsNet] started
+[2022-11-16T16:06:32.225][Info][kl.drivers.RAMDisk][21:22][BLKPART] Add MBR/EBR partition 'ramdisk0_p0', type: 0x83, offset:   2048, size: 260096 (in sectors)
+[2022-11-16T16:06:32.613][Error][kl.drivers.RAMDisk][21:22][BLKPART] MBR is not valid, found signature = 0x0
+[2022-11-16T16:06:32.764][Error][kl.drivers.RAMDisk][21:22][BLKPART] MBR not found on disk 'ramdisk1'
+[2022-11-16T16:06:33.317][Info][kl.drivers.RAMDisk][21:22][BLKDEVSR] Port 'ramdisk0' successfully registered.
+[2022-11-16T16:06:33.523][Info][kl.drivers.RAMDisk][21:22][BLKDEVSR] Port 'ramdisk1' successfully registered.
+[2022-11-16T16:06:33.827][Info][kl.drivers.RAMDisk][21:22][BLKDEVSR] Port 'ramdisk0_p0' successfully registered.
+[2022-11-16T16:06:50.196][Info][kl.VfsRamFs][39:40][NS] Can't connect with Name Server.
+[Info][kl.VfsRamFs][crt0-common.c:init_vfs_backend:580][CRT0] _vfs_fs = env(server:kl.VfsRamFs)
+[VfsRamFs] started
+[VfsRamFs] Successfully mounted devfs, /dev, devfs
+[Info][mosquitto.Subscriber][crt0-common.c:init_vfs_backend:573][CRT0] _vfs_fs = env(client:kl.VfsRamFs), _vfs_net = env(client:kl.VfsNet)
+[Info][kl.Ntpd][crt0-common.c:init_vfs_backend:573][CRT0] _vfs_fs = env(client:kl.VfsRamFs), _vfs_net = env(client:kl.VfsNet)
+[Info][kl.rump.Dhcpcd][crt0-common.c:init_vfs_backend:573][CRT0] _vfs_fs = env(client{fs->net}:kl.VfsRamFs), _vfs_net = env(client:kl.VfsNet)
+dhcpcd-9.4.1 starting
+no interfaces have a carrier
+en0: waiting for carrier
+en0: carrier unknown, assuming up
+en0: soliciting a DHCP lease
+en0: selected profile static_en0
+[Subscriber] Connecting to MQTT Broker with address 10.0.2.2 and port 1883
+[Subscriber] Subscriber connected with code 0
+[Subscriber] Subscription succeeded.
+en0: using static address 10.0.2.12/24
+en0: adding route to 10.0.2.0/24
+en0: adding default route via 10.0.2.1
+route socket overflowed (rcvbuflen 16384) - learning interface state
+drained 1 messages
+[Subscriber] Got message with topic: my/awesome/topic, payload: Hello from KasperskyOS through MQTT
+[Subscriber] Got message with topic: my/awesome/topic, payload: a
