@@ -30,6 +30,8 @@ RUN apt-get update \
         git \
         nano \
         vim \
+	mosquitto \
+	mosquitto-clients \
         cmake-curses-gui \
         gdebi-core \
         device-tree-compiler \
