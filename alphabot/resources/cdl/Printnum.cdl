@@ -1,0 +1,5 @@
+component alphabot.Printnum
+
+endpoints {
+    printnum : alphabot.Printnum
+}

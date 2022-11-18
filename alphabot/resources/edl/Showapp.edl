@@ -1,0 +1,5 @@
+entity alphabot.Showapp
+
+components {
+    Showapp : alphabot.Printnum
+}
