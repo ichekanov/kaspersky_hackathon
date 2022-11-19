@@ -149,9 +149,6 @@ void Motor::do_instruction(int type, int time, int speed = 20)
     case STOP:
         this->stop();
         break;
-    case STOP:
-        this->stop();
-        break;
     case STRAIGHT:
         this->straight(time, speed);
         break;
