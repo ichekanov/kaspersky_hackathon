@@ -1,5 +1,4 @@
-package alphabot.Printnum
-
+package mosquitto.Printnum
 interface {
-    Printnum(in UInt32 value);
+	Printnum(in UInt32 value1, in UInt32 value2, in UInt32 value3);
 }

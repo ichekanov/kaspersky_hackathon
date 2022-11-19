@@ -1,5 +1,5 @@
-component alphabot.Printnum
+component mosquitto.Printnum
 
 endpoints {
-    printnum : alphabot.Printnum
+    printnum : mosquitto.Printnum
 }

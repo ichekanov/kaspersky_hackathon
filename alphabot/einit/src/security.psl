@@ -21,8 +21,8 @@ use EDL kl.drivers.BSP
 use EDL kl.drivers.GPIO
 
 /* EDL descriptions of external (not provided in the SDK) programs. */
-use EDL alphabot.Subscriber
-use EDL alphabot.Showapp
+use EDL mosquitto.Subscriber
+use EDL mosquitto.Showapp
 
 execute {
     grant ()

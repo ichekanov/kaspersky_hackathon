@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.12)
-project(alphabot)
+project(mosquitto)
 
 # Initialize CMake library for KasperskyOS SDK.
 include (platform)
@@ -11,17 +11,20 @@ include (platform/install)
 # Toolchain for working with the NK-parser.
 include (platform/nk)
 
-nk_build_edl_files (showapp_edl_files
-                    NK_MODULE "alphabot" EDL
-                    "resources/edl/Showapp.edl")
 
-nk_build_edl_files (subscriber_edl_files
-                    NK_MODULE "alphabot" EDL
+nk_build_idl_files (mosquitto_idl_files NK_MODULE "mosquitto" IDL "resources/idl/Printnum.idl")
+nk_build_cdl_files (mosquitto_cdl_files IDL_TARGET mosquitto_idl_files NK_MODULE "mosquitto" CDL "resources/cdl/Printnum.cdl")
+nk_build_edl_files (subscriber_edl_files CDL_TARGET mosquitto_cdl_files
+                    NK_MODULE "mosquitto" EDL
                     "resources/edl/Subscriber.edl")
 
-# Add a package with the alphabot component.
-find_package (alphabot REQUIRED COMPONENTS CXX_LIB)
-include_directories (${alphabot_INCLUDE})
+nk_build_edl_files (showapp_edl_files
+                    NK_MODULE "mosquitto" EDL
+                    "resources/edl/Showapp.edl")
+
+# Add a package with the mosquitto component.
+find_package (mosquitto REQUIRED COMPONENTS CXX_LIB)
+include_directories (${mosquitto_INCLUDE})
 
 # Add a package for working with the virtual file system.
 find_package (vfs REQUIRED)

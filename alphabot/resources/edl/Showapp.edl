@@ -1,5 +1,5 @@
-entity alphabot.Showapp
+entity mosquitto.Showapp
 
 components {
-    Showapp : alphabot.Printnum
+    Showapp : mosquitto.Printnum
 }

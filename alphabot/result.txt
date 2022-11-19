@@ -253,7 +253,7 @@ entropy: ready
 [VfsRamFs] Successfully mounted devfs, /dev, devfs
 [Info][kl.rump.Dhcpcd][crt0-common.c:init_vfs_backend:573][CRT0] _vfs_fs = env(client{fs->net}:kl.VfsRamFs), _vfs_net = env(client:kl.VfsNet)
 dhcpcd-9.4.1 starting
-[Info][alphabot.Subscriber][crt0-common.c:init_vfs_backend:573][CRT0] _vfs_fs = env(client:kl.VfsRamFs), _vfs_net = env(client:kl.VfsNet)
+[Info][mosquitto.Subscriber][crt0-common.c:init_vfs_backend:573][CRT0] _vfs_fs = env(client:kl.VfsRamFs), _vfs_net = env(client:kl.VfsNet)
 [Info][kl.Ntpd][crt0-common.c:init_vfs_backend:573][CRT0] _vfs_fs = env(client:kl.VfsRamFs), _vfs_net = env(client:kl.VfsNet)
 no interfaces have a carrier
 en0: waiting for carrier
