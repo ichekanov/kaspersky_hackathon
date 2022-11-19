@@ -10,3 +10,5 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexceptions -Wno-deprecated-declaratio
 
 add_executable (Showapp "src/showapp.cpp" "src/Motor.hpp")
 add_dependencies (Showapp showapp_edl_files)
+
+target_link_libraries (Client ${gpio_CLIENT_LIB})
