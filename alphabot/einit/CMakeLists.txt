@@ -18,7 +18,8 @@ set (ENTITIES Showapp
     Subscriber
     ${precompiled_vfsVfsNet}
     ${NTPD_ENTITY}
-    ${rump_DHCPCD_ENTITY})
+    ${rump_DHCPCD_ENTITY}
+    ${gpio_HW_ENTITY})
 
 if ("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "aarch64")
      set (SECURITY_PSL_FILE "src/security.psl")
