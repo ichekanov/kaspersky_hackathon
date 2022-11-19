@@ -26,6 +26,9 @@ nk_build_edl_files (showapp_edl_files
 find_package (mosquitto REQUIRED COMPONENTS CXX_LIB)
 include_directories (${mosquitto_INCLUDE})
 
+find_package (gpio REQUIRED COMPONENTS CLIENT_LIB ENTITY)
+include_directories (${gpio_INCLUDE})
+
 # Add a package for working with the virtual file system.
 find_package (vfs REQUIRED)
 include_directories (${vfs_INCLUDE})

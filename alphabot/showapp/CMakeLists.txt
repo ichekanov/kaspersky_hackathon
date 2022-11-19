@@ -8,5 +8,5 @@ set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexceptions -Wno-deprecated-declarations")
 
-add_executable (Showapp "src/showapp.cpp" )
+add_executable (Showapp "src/showapp.cpp" "src/Motor.hpp")
 add_dependencies (Showapp showapp_edl_files)
