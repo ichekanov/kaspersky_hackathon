@@ -1,0 +1,108 @@
+/* Solution security policy of the "gpio_output" example. */
+
+/* Including the trusted.psl file. */
+use trusted._
+
+/* Including EDL files. */
+use EDL client.Client
+@INIT_EXTERNAL_ENTITIES@
+
+/* Assigning the execute interface. */
+execute: kl.core.Execute
+
+/**
+ * Allows the tasks with the Einit class to start the tasks
+ * with the client.Client and the kl.drivers.GPIO classes.
+ */
+execute src=Einit, dst=client.Client
+{
+    grant()
+}
+
+execute src=Einit, dst=kl.drivers.GPIO
+{
+    grant()
+}
+
+/**
+ * Allows the tasks with the client.Client class
+ * to send requests to the KasperskyOS kernel and get responses.
+ * This enables the Client program to use core endpoints.
+ */
+request src=client.Client, dst=kl.core.Core
+{
+    grant()
+}
+
+response src=kl.core.Core, dst=client.Client
+{
+    grant()
+}
+
+/**
+ * Allows the tasks with the kl.drivers.GPIO class
+ * to send requests to the KasperskyOS kernel and get responses.
+ * This enables the GPIO driver to use core endpoints.
+ */
+request src=kl.drivers.GPIO, dst=kl.core.Core
+{
+    grant()
+}
+
+response src=kl.core.Core, dst=kl.drivers.GPIO
+{
+    grant()
+}
+
+/**
+ * Allows the tasks with the client.Client class to send requests
+ * to tasks with the kl.drivers.GPIO class and get responses.
+ * This enables the Client program to communicate with the GPIO driver.
+ */
+request src=client.Client, dst=kl.drivers.GPIO
+{
+    grant()
+}
+
+response src=kl.drivers.GPIO, dst=client.Client
+{
+    grant()
+}
+
+/**
+ * Allows the tasks with the Einit class to start the tasks with the kl.drivers.BSP class.
+ */
+execute src=Einit, dst=kl.drivers.BSP
+{
+    grant()
+}
+
+/**
+ * Allows the tasks with the kl.drivers.BSP class
+ * to send requests to the KasperskyOS kernel and get responses.
+ * This enables the BSP program to use core endpoints.
+ */
+request src=kl.drivers.BSP, dst=kl.core.Core
+{
+    grant()
+}
+
+response src=kl.core.Core, dst=kl.drivers.BSP
+{
+    grant()
+}
+
+/**
+ * Allows the tasks with the client.Client class to send requests
+ * to tasks with the kl.drivers.BSP class and get responses.
+ * This enables the Client program to communicate with the BSP driver.
+ */
+request src=client.Client, dst=kl.drivers.BSP
+{
+    grant()
+}
+
+response src=kl.drivers.BSP, dst=client.Client
+{
+    grant()
+}
