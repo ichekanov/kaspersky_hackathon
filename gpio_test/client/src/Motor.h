@@ -4,6 +4,7 @@
 #define MOTOR_H
 
 #include <bsp/bsp.h>
+#include <coresrv/time/time_api.h>
 #include <gpio/gpio.h>
 #include <rtl/countof.h>
 #include <stdbool.h>
@@ -28,6 +29,7 @@ class Motor
     int begin();
     void do_instruction(int type, int time, int speed);
     void stop();
+    void run();
 
   private:
     int pin1;
@@ -37,9 +39,11 @@ class Motor
     int pin4;
     int enB;
     bool initialized;
+    bool stopped;
     GpioHandle handle;
+    rtl_size_t stop_signal;
 
-    void run(int time, int speed);
+    void straight(int time, int speed);
     void turn(int time, int speed);
 };
 
@@ -52,6 +56,9 @@ Motor::Motor(int pin1, int pin2, int enA, int pin3, int pin4, int enB)
     this->pin4 = pin4;
     this->enB = enB;
     this->initialized = false;
+    this->stopped = false;
+    this->handle = NULL;
+    this->stop_signal = 0;
 }
 
 int Motor::begin()
@@ -127,9 +134,11 @@ int Motor::begin()
         return EXIT_FAILURE;
     }
 
-    fprintf(stderr, "Test finished.\n");
-    this->initialized = true;
     this->handle = handle;
+    this->stop();
+    this->stop_signal = KnGetMSecSinceStart();
+    this->initialized = true;
+    fprintf(stderr, "Test finished.\n");
     return EXIT_SUCCESS;
 }
 
@@ -138,7 +147,7 @@ void Motor::do_instruction(int type, int time, int speed)
     switch (type)
     {
     case STRAIGHT:
-        this->run(time, speed);
+        this->straight(time, speed);
         break;
     case TURN:
         this->turn(time, speed);
@@ -148,7 +157,7 @@ void Motor::do_instruction(int type, int time, int speed)
     }
 }
 
-void Motor::run(int time, int speed)
+void Motor::straight(int time, int speed)
 {
     if (!this->initialized)
     {
@@ -156,21 +165,27 @@ void Motor::run(int time, int speed)
         return;
     }
 
-    GpioOut(this->handle, this->pin1, GPIO_VALUE_HIGH);
-    GpioOut(this->handle, this->pin2, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->enA, GPIO_VALUE_HIGH);
-    GpioOut(this->handle, this->pin3, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->pin4, GPIO_VALUE_HIGH);
-    GpioOut(this->handle, this->enB, GPIO_VALUE_HIGH);
+    if (speed > 0) // move forward
+    {
+        GpioOut(this->handle, this->pin1, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->pin2, GPIO_VALUE_LOW);
+        GpioOut(this->handle, this->enA, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->pin3, GPIO_VALUE_LOW);
+        GpioOut(this->handle, this->pin4, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->enB, GPIO_VALUE_HIGH);
+    }
+    else // move backward
+    {
+        GpioOut(this->handle, this->pin1, GPIO_VALUE_LOW);
+        GpioOut(this->handle, this->pin2, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->enA, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->pin3, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->pin4, GPIO_VALUE_LOW);
+        GpioOut(this->handle, this->enB, GPIO_VALUE_HIGH);
+    }
 
-    sleep(time * 1000);
-
-    GpioOut(this->handle, this->pin1, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->pin2, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->enA, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->pin3, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->pin4, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->enB, GPIO_VALUE_LOW);
+    this->stop_signal = KnGetMSecSinceStart() + time;
+    this->stopped = false;
 }
 
 void Motor::turn(int time, int speed)
@@ -180,22 +195,27 @@ void Motor::turn(int time, int speed)
         fprintf(stderr, "Not initialized.\n");
         return;
     }
+    if (speed > 0) // turn left
+    {
+        GpioOut(this->handle, this->pin1, GPIO_VALUE_LOW);
+        GpioOut(this->handle, this->pin2, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->enA, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->pin3, GPIO_VALUE_LOW);
+        GpioOut(this->handle, this->pin4, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->enB, GPIO_VALUE_HIGH);
+    }
+    else // turn right
+    {
+        GpioOut(this->handle, this->pin1, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->pin2, GPIO_VALUE_LOW);
+        GpioOut(this->handle, this->enA, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->pin3, GPIO_VALUE_HIGH);
+        GpioOut(this->handle, this->pin4, GPIO_VALUE_LOW);
+        GpioOut(this->handle, this->enB, GPIO_VALUE_HIGH);
+    }
 
-    GpioOut(this->handle, this->pin1, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->pin2, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->enA, GPIO_VALUE_HIGH);
-    GpioOut(this->handle, this->pin3, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->pin4, GPIO_VALUE_HIGH);
-    GpioOut(this->handle, this->enB, GPIO_VALUE_HIGH);
-
-    sleep(time * 1000);
-
-    GpioOut(this->handle, this->pin1, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->pin2, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->enA, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->pin3, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->pin4, GPIO_VALUE_LOW);
-    GpioOut(this->handle, this->enB, GPIO_VALUE_LOW);
+    this->stop_signal = KnGetMSecSinceStart() + time;
+    this->stopped = false;
 }
 
 void Motor::stop()
@@ -212,6 +232,14 @@ void Motor::stop()
     GpioOut(this->handle, this->pin3, GPIO_VALUE_LOW);
     GpioOut(this->handle, this->pin4, GPIO_VALUE_LOW);
     GpioOut(this->handle, this->enB, GPIO_VALUE_LOW);
+
+    this->stopped = true;
+}
+
+void Motor::run() {
+    if (KnGetMSecSinceStart() > this->stop_signal && !this->stopped) {
+        this->stop();
+    }
 }
 
 #endif

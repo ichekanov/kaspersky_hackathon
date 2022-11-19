@@ -7,6 +7,8 @@
 #include <sys/cdefs.h>
 #include <rtl/countof.h>
 #include "Motor.h"
+#include <coresrv/time/time_api.h>
+
 
 #define GPIO_PIN_NUM    RTL_UINT32_C(28)
 #define DELAY_S         2
@@ -27,9 +29,17 @@
 
 int main(void)
 {
+    auto last_run = KnGetMSecSinceStart();
     Motor motor(GPIO_PIN_MOTOR_IN1, GPIO_PIN_MOTOR_IN2, GPIO_PIN_MOTOR_ENA, GPIO_PIN_MOTOR_IN3, GPIO_PIN_MOTOR_IN4, GPIO_PIN_MOTOR_ENB);
     motor.begin();
-    motor.do_instruction(STRAIGHT, 1000, 100);
-    motor.do_instruction(TURN, 1000, 100);
+    while (true)
+    {
+        motor.run();
+        if (KnGetMSecSinceStart() - last_run > 2000)
+        {
+            motor.do_instruction(STRAIGHT, 1000, 100);
+            last_run = KnGetMSecSinceStart();
+        }
+    }
     return EXIT_SUCCESS;
 }
