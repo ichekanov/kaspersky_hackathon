@@ -14,6 +14,7 @@
 #define HW_MODULE_NAME "gpio0"
 #define HW_MODULE_CFG "raspberry_pi4b.default"
 
+#define STOP 0
 #define STRAIGHT 1
 #define TURN 2
 
@@ -144,6 +145,9 @@ void Motor::do_instruction(int type, int time, int speed=20)
 {
     switch (type)
     {
+	case STOP:
+		this->stop();
+		break;
     case STRAIGHT:
         this->straight(time, speed);
         break;

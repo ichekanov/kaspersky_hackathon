@@ -9,13 +9,18 @@
 
 using namespace std::literals;
 
-constexpr auto Topic = "my/awesome/topic"sv;
+constexpr auto Topic = "abot/command"sv;
 
 #include <iostream>
 #include <fstream>
 
 #include "json.hpp"
 #include <list>
+
+#define STOP 0
+#define STRAIGHT 1
+#define TURN 2
+#define SPEED 100
 
 using namespace std;
 using json = nlohmann::json;
@@ -44,19 +49,19 @@ tuple<int, int, int> cmdAuto(const json &cmd){
 }
 
 tuple<int, int, int> cmdFwd(const json &cmd){
-    return make_tuple(1, int(stod(string(cmd["val"]))*1000), 0);
+    return make_tuple(STRAIGHT, int(stod(string(cmd["val"]))*1000), SPEED);
 }
 
 tuple<int, int, int> cmdBck(const json &cmd){
-    return make_tuple(2, int(stod(string(cmd["val"]))*1000), 0);
+    return make_tuple(STRAIGHT, int(stod(string(cmd["val"]))*1000), -SPEED);
 }
 
 tuple<int, int, int> cmdLft(const json &cmd){
-    return make_tuple(3, int(stod(string(cmd["val"]))*1000), 0);
+    return make_tuple(TURN, int(stod(string(cmd["val"]))*1000), SPEED);
 }
 
 tuple<int, int, int> cmdRht(const json &cmd){
-    return make_tuple(4, int(stod(string(cmd["val"]))*1000), 0);
+    return make_tuple(TURN, int(stod(string(cmd["val"]))*1000), -SPEED);
 }
 
 tuple<int, int, int> cmdStp(const json &cmd){

@@ -29,6 +29,10 @@ include_directories (${mosquitto_INCLUDE})
 find_package (gpio REQUIRED COMPONENTS CLIENT_LIB ENTITY)
 include_directories (${gpio_INCLUDE})
 
+find_package (bsp REQUIRED)
+include_directories (${bsp_INCLUDE})
+
+
 # Add a package for working with the virtual file system.
 find_package (vfs REQUIRED)
 include_directories (${vfs_INCLUDE})

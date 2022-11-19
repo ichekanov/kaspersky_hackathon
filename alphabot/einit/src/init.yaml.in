@@ -13,7 +13,7 @@ entities:
     id: kl.VfsNet
   - target: @ROOTFS_ENTITY@
     id: @ROOTFS_ENTITY@
-@INIT_Subscriber_ENTITY_CONNECTIONS+@
+@INIT_Subscriber_ENTITY_CONNECTIONS@
 
 - name: kl.Ntpd
   path: ntpd
@@ -29,9 +29,9 @@ entities:
     id: kl.VfsNet
   - target: @ROOTFS_ENTITY@
     id: @ROOTFS_ENTITY@
-@INIT_Ntpd_ENTITY_CONNECTIONS+@
+@INIT_Ntpd_ENTITY_CONNECTIONS@
 
 - name: mosquitto.Showapp
-@INIT_Showapp_ENTITY_CONNECTIONS+@
+@INIT_Showapp_ENTITY_CONNECTIONS@
 
 @INIT_EXTERNAL_ENTITIES@

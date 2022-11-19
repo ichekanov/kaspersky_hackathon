@@ -6,7 +6,7 @@
 
 using namespace std::literals;
 
-constexpr auto Topic = "my/awesome/topic"sv;
+constexpr auto Topic = "abot/command"sv;
 
 Subscriber::Subscriber(const char *id, const char *host, int port)
     : mosquittopp(id)
