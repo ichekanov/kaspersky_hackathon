@@ -31,15 +31,15 @@
 #define GPIO_PIN_MOTOR_IN4 21
 #define GPIO_PIN_MOTOR_ENB 26
 
-Motor motor(GPIO_PIN_MOTOR_IN1, GPIO_PIN_MOTOR_IN2, GPIO_PIN_MOTOR_ENA, GPIO_PIN_MOTOR_IN3, GPIO_PIN_MOTOR_IN4, GPIO_PIN_MOTOR_ENB);
-
+Motor motor(GPIO_PIN_MOTOR_IN1, GPIO_PIN_MOTOR_IN2, GPIO_PIN_MOTOR_ENA, GPIO_PIN_MOTOR_IN3, GPIO_PIN_MOTOR_IN4,
+            GPIO_PIN_MOTOR_ENB);
 
 static nk_err_t Printnum_impl(struct mosquitto_Printnum *self, const struct mosquitto_Printnum_Printnum_req *req,
                               const struct nk_arena *req_arena, struct mosquitto_Printnum_Printnum_res *res,
                               struct nk_arena *res_arena)
 {
     fprintf(stderr, "[ShowApp] Recieved number: %d, %d, %d\n", req->value1, req->value2, req->value3);
-    motor.do_instruction(req->value1, req->value2, req -> value3);
+    motor.do_instruction(req->value1, req->value2, req->value3, req->value3);
     return NK_EOK;
 }
 
@@ -86,6 +86,7 @@ int main(void)
             mosquitto_Showapp_entity_dispatch(&entity, &req.base_, &req_arena, &res.base_, &res_arena);
         if (nk_transport_reply(&transport.base, &res.base_, &res_arena) != NK_EOK)
             fprintf(stderr, "nk_transport_reply error\n");
+
         motor.run();
     }
 

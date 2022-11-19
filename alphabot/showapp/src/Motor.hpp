@@ -15,6 +15,7 @@
 #define HW_MODULE_CFG "raspberry_pi4b.default"
 
 #define STOP 0
+#define STOP 0
 #define STRAIGHT 1
 #define TURN 2
 
@@ -141,13 +142,16 @@ int Motor::begin()
     return EXIT_SUCCESS;
 }
 
-void Motor::do_instruction(int type, int time, int speed=20)
+void Motor::do_instruction(int type, int time, int speed = 20)
 {
     switch (type)
     {
-	case STOP:
-		this->stop();
-		break;
+    case STOP:
+        this->stop();
+        break;
+    case STOP:
+        this->stop();
+        break;
     case STRAIGHT:
         this->straight(time, speed);
         break;
@@ -238,8 +242,10 @@ void Motor::stop()
     this->stopped = true;
 }
 
-void Motor::run() {
-    if (KnGetMSecSinceStart() > this->stop_signal && !this->stopped) {
+void Motor::run()
+{
+    if (KnGetMSecSinceStart() > this->stop_signal && !this->stopped)
+    {
         this->stop();
     }
 }
