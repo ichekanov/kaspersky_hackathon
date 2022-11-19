@@ -30,6 +30,7 @@ class Motor
     void do_instruction(int type, int time, int speed);
     void stop();
     void run();
+    bool is_stopped();
 
   private:
     int pin1;
@@ -245,6 +246,11 @@ void Motor::run()
     {
         this->stop();
     }
+}
+
+bool Motor::is_stopped()
+{
+    return this->stopped;
 }
 
 #endif

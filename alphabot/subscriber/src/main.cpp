@@ -69,7 +69,7 @@ int main(void)
         "subscriber", GetBrokerAddress().c_str(), GetBrokerPort());
     if (sub)
     {
-        sub->loop_forever();
+        sub->run_forever();
     }
 
     mosqpp::lib_cleanup();
