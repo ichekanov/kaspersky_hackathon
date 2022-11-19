@@ -35,11 +35,12 @@ int main(void)
     while (true)
     {
         motor.run();
-        if (KnGetMSecSinceStart() - last_run > 2000)
+        if (KnGetMSecSinceStart() - last_run > 60.000)
         {
-            motor.do_instruction(STRAIGHT, 1000, 100);
+            motor.do_instruction(STRAIGHT, 1000);
             last_run = KnGetMSecSinceStart();
         }
     }
     return EXIT_SUCCESS;
+
 }

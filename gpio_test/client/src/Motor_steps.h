@@ -22,12 +22,25 @@
 #define GPIO_VALUE_HIGH 1
 #define GPIO_VALUE_LOW 0
 
+// 20 прорезей
+#define STEPS_PER_CM 1
+#define STEPS_PER_DEGREE 9/90
+
+#define GPIO_EVENT_DELAY_MS 10
+
+#define GPIO_PIN_STEP_R 8
+#define GPIO_PIN_STEP_L 7
+
+#define GPIO_INTERRUPT static_cast<GpioMode>(GPIO_DIR_IN|GPIO_EVENT_RISE_EDGE)
+
+static rtl_uint32_t pinsBitmap = RTL_UINT32_C(0);
+
 class Motor
 {
   public:
     Motor(int pin1, int pin2, int enA, int pin3, int pin4, int enB);
     int begin();
-    void do_instruction(int type, int time, int speed);
+    void do_instruction(int type, int value);
     void stop();
     void run();
 
@@ -41,10 +54,13 @@ class Motor
     bool initialized;
     bool stopped;
     GpioHandle handle;
-    rtl_size_t stop_signal;
+    unsigned int number_of_steps;
+    unsigned int current_steps;
 
-    void straight(int time, int speed);
-    void turn(int time, int speed);
+    void straight(int distance);
+    void turn(int angle);
+    void count_step();
+    void check_interrupt();
 };
 
 Motor::Motor(int pin1, int pin2, int enA, int pin3, int pin4, int enB)
@@ -58,7 +74,8 @@ Motor::Motor(int pin1, int pin2, int enA, int pin3, int pin4, int enB)
     this->initialized = false;
     this->stopped = false;
     this->handle = NULL;
-    this->stop_signal = 0;
+    this->number_of_steps = 0;
+    this->current_steps = 0;
 }
 
 int Motor::begin()
@@ -124,6 +141,8 @@ int Motor::begin()
     rc += GpioSetMode(handle, this->pin3, GPIO_DIR_OUT);
     rc += GpioSetMode(handle, this->pin4, GPIO_DIR_OUT);
     rc += GpioSetMode(handle, this->enB, GPIO_DIR_OUT);
+    rc += GpioSetMode(handle, GPIO_PIN_STEP_R, GPIO_INTERRUPT);
+    // rc += GpioSetMode(handle, GPIO_PIN_STEP_L, GPIO_EVENT_RISE_EDGE);
     if (rcOk != rc)
     {
         fprintf(stderr,
@@ -136,28 +155,27 @@ int Motor::begin()
 
     this->handle = handle;
     this->stop();
-    this->stop_signal = KnGetMSecSinceStart();
     this->initialized = true;
     fprintf(stderr, "Test finished.\n");
     return EXIT_SUCCESS;
 }
 
-void Motor::do_instruction(int type, int time, int speed=20)
+void Motor::do_instruction(int type, int value)
 {
     switch (type)
     {
     case STRAIGHT:
-        this->straight(time, speed);
+        this->straight(value);
         break;
     case TURN:
-        this->turn(time, speed);
+        this->turn(value);
         break;
     default:
         break;
     }
 }
 
-void Motor::straight(int time, int speed)
+void Motor::straight(int value)
 {
     if (!this->initialized)
     {
@@ -165,7 +183,7 @@ void Motor::straight(int time, int speed)
         return;
     }
 
-    if (speed < 0) // move backward
+    if (value < 0) // move forward
     {
         GpioOut(this->handle, this->pin1, GPIO_VALUE_HIGH);
         GpioOut(this->handle, this->pin2, GPIO_VALUE_LOW);
@@ -174,7 +192,7 @@ void Motor::straight(int time, int speed)
         GpioOut(this->handle, this->pin4, GPIO_VALUE_HIGH);
         GpioOut(this->handle, this->enB, GPIO_VALUE_HIGH);
     }
-    else // move forward
+    else // move backward
     {
         GpioOut(this->handle, this->pin1, GPIO_VALUE_LOW);
         GpioOut(this->handle, this->pin2, GPIO_VALUE_HIGH);
@@ -184,18 +202,19 @@ void Motor::straight(int time, int speed)
         GpioOut(this->handle, this->enB, GPIO_VALUE_HIGH);
     }
 
-    this->stop_signal = KnGetMSecSinceStart() + time;
+    this->current_steps = 0;
+    this->number_of_steps = value * STEPS_PER_CM;
     this->stopped = false;
 }
 
-void Motor::turn(int time, int speed)
+void Motor::turn(int value)
 {
     if (!this->initialized)
     {
         fprintf(stderr, "Not initialized.\n");
         return;
     }
-    if (speed > 0) // turn left
+    if (value > 0) // turn left
     {
         GpioOut(this->handle, this->pin1, GPIO_VALUE_LOW);
         GpioOut(this->handle, this->pin2, GPIO_VALUE_HIGH);
@@ -214,7 +233,8 @@ void Motor::turn(int time, int speed)
         GpioOut(this->handle, this->enB, GPIO_VALUE_HIGH);
     }
 
-    this->stop_signal = KnGetMSecSinceStart() + time;
+    this->current_steps = 0;
+    this->number_of_steps = value * STEPS_PER_DEGREE;
     this->stopped = false;
 }
 
@@ -233,12 +253,58 @@ void Motor::stop()
     GpioOut(this->handle, this->pin4, GPIO_VALUE_LOW);
     GpioOut(this->handle, this->enB, GPIO_VALUE_LOW);
 
+    this->current_steps = 0;
+    this->number_of_steps = 0;
     this->stopped = true;
 }
 
-void Motor::run() {
-    if (KnGetMSecSinceStart() > this->stop_signal && !this->stopped) {
+void Motor::run()
+{
+    this->check_interrupt();
+    if (this->current_steps >= this->number_of_steps && !this->stopped)
+    {
         this->stop();
+    }
+}
+
+static bool IsFirstInterrupt(const rtl_uint32_t pin)
+{
+    bool isFirstInterruptOnPin = false;
+
+    if (0U == (pinsBitmap & (1U << pin)))
+    {
+        isFirstInterruptOnPin = true;
+    }
+
+    return isFirstInterruptOnPin;
+}
+
+static void SetPinBitmap(const rtl_uint32_t pin)
+{
+    pinsBitmap |= (1U << pin);
+}
+
+void Motor::check_interrupt()
+{
+    if (!this->initialized)
+    {
+        fprintf(stderr, "Not initialized.\n");
+        return;
+    }
+
+    char buf[sizeof(KdfEvent) + sizeof(GpioEvent)] = {0};
+    KdfEvent *event = (KdfEvent *)buf;
+
+    if (GpioGetEvent(this->handle, event, GPIO_EVENT_DELAY_MS) == rcOk)
+    {
+        auto pin = *((rtl_uint32_t *)event->payload);
+        if ((event->type == GPIO_EVENT_TYPE_EDGE_RISE) && (pin == GPIO_PIN_STEP_L || pin == GPIO_PIN_STEP_R) && (IsFirstInterrupt(pin)))
+        {
+            SetPinBitmap(pin);
+            fprintf(stderr, "Interrupt on %s module %d pin: pin %d is HIGH!\n", HW_MODULE_NAME, pin, pin);
+            GpioReleaseMode(this->handle, pin);
+            this->current_steps++;
+        }
     }
 }
 
