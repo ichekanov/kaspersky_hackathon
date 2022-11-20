@@ -131,8 +131,8 @@ void Subscriber::on_message(const struct mosquitto_message *message)
 {
     if (Topic == message->topic)
     {
-        std::cout << app::AppTag << "Received message: " << message->payload << std::endl;
         const std::string msg_string(static_cast<const char *>(message->payload));
+        std::cout << app::AppTag << "Received message: " << msg_string << std::endl;
         json cmd = json::parse(msg_string);
 
         if (cmd["cmd"] != "auto")
@@ -140,6 +140,7 @@ void Subscriber::on_message(const struct mosquitto_message *message)
             if (flag_auto_on)
                 flag_auto_on = false;
             tuple<int, int, int> answer = parseJsonManualCommand(cmd);
+            std::cout << app::AppTag << "Sending command: " << get<0>(answer) << " " << get<1>(answer) << " " << get<2>(answer) << std::endl;
             this->execute_instruction(get<0>(answer), get<1>(answer), get<2>(answer));
         }
         if (cmd["cmd"] == "auto" && !flag_auto_on)
