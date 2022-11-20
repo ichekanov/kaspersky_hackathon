@@ -42,3 +42,5 @@
 
 ## Лицензия 
 [**MIT License**](LICENSE)
+
+**(с) Kaspersky 2022**
