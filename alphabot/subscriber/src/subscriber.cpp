@@ -25,7 +25,7 @@ constexpr auto Topic = "abot/command2"sv;
 
 tuple<int, int, int> cmdAuto(const json &cmd)
 {
-    cout << "markers_floor" << endl;
+    cout << "markers_screen" << endl;
     for (int i = 0; i < cmd["markers_screen"].size(); ++i)
     {
         json point = cmd["markers_screen"][i];
@@ -94,8 +94,8 @@ tuple<int, int, int> parseJsonManualCommand(const json &cmd)
 
 Subscriber::Subscriber(const char *id, const char *host, int port) : mosquittopp(id)
 {
-    std::cout << app::AppTag << "Connecting to MQTT Broker with address " << host << " and port " << port << std::endl;
-
+    // std::cout << app::AppTag << "Connecting to MQTT Broker with address " << host << " and port " << port << std::endl;
+    fprintf(stderr, "Connecting to MQTT Broker with address %s and port %d\n", host, port);
     const int keepAlive = 60;
 
     connect(host, port, keepAlive);
@@ -103,8 +103,8 @@ Subscriber::Subscriber(const char *id, const char *host, int port) : mosquittopp
 
 void Subscriber::on_connect(int rc)
 {
-    std::cout << app::AppTag << "Subscriber connected with code " << rc << std::endl;
-
+    // std::cout << app::AppTag << "Subscriber connected with code " << rc << std::endl;
+    fprintf(stderr, "Subscriber connected with code %d\n", rc);
     if (rc == 0)
     {
         subscribe(NULL, Topic.data());
@@ -133,7 +133,8 @@ void Subscriber::on_message(const struct mosquitto_message *message)
     if (Topic == message->topic)
     {
         const std::string msg_string(static_cast<const char *>(message->payload));
-        std::cout << app::AppTag << "Received message: " << msg_string << std::endl;
+        // std::cout << app::AppTag << "Received message: " << msg_string << std::endl;
+        fprintf(stderr, "Received message: %s\n", msg_string.c_str());
         json cmd = json::parse(msg_string);
 
         if (cmd["cmd"] != "auto")
@@ -141,7 +142,8 @@ void Subscriber::on_message(const struct mosquitto_message *message)
             if (flag_auto_on)
                 flag_auto_on = false;
             tuple<int, int, int> answer = parseJsonManualCommand(cmd);
-            std::cout << app::AppTag << "Sending command: " << get<0>(answer) << " " << get<1>(answer) << " " << get<2>(answer) << std::endl;
+            // std::cout << app::AppTag << "Sending command: " << get<0>(answer) << " " << get<1>(answer) << " " << get<2>(answer) << std::endl;
+            fprintf(stderr, "Sending command: %d %d %d\n", get<0>(answer), get<1>(answer), get<2>(answer));
             this->execute_instruction(get<0>(answer), get<1>(answer), get<2>(answer));
         }
         if (cmd["cmd"] == "auto" && !flag_auto_on)
@@ -161,26 +163,28 @@ void Subscriber::on_message(const struct mosquitto_message *message)
 
 void Subscriber::on_subscribe(__rtl_unused int mid, __rtl_unused int qos_count, __rtl_unused const int *granted_qos)
 {
-    std::cout << app::AppTag << "Subscription succeeded." << std::endl;
+    // std::cout << app::AppTag << "Subscription succeeded." << std::endl;
+    fprintf(stderr, "Subscription succeeded.\n");
 }
 
 void Subscriber::run_forever(int timeout, int max_packets)
 {
+    this->loop_forever();
     while (true)
     {
-        this->loop(timeout, max_packets);
-        if (!this->instructions.empty() && KnGetMSecSinceStart() > this->next_execution)
-        {
-            auto instruction = this->instructions.front();
-            this->instructions.pop_front();
-            this->next_execution = KnGetMSecSinceStart() + get<1>(instruction);
-            this->execute_instruction(get<0>(instruction), get<1>(instruction), get<2>(instruction));
-        }
-        if (this->instructions.empty() && flag_auto_on && KnGetMSecSinceStart() > this->next_execution)
-        {
-            flag_auto_on = false;
-            this->execute_instruction(STOP, 0, 0);
-        }
+        // this->loop(timeout, max_packets);
+        // if (!this->instructions.empty() && KnGetMSecSinceStart() > this->next_execution)
+        // {
+        //     auto instruction = this->instructions.front();
+        //     this->instructions.pop_front();
+        //     this->next_execution = KnGetMSecSinceStart() + get<1>(instruction);
+        //     this->execute_instruction(get<0>(instruction), get<1>(instruction), get<2>(instruction));
+        // }
+        // if (this->instructions.empty() && flag_auto_on && KnGetMSecSinceStart() > this->next_execution)
+        // {
+        //     this->flag_auto_on = false;
+        //     this->execute_instruction(STOP, 0, 0);
+        // }
     }
 }
 
