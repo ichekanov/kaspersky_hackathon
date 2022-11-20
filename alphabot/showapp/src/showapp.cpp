@@ -42,8 +42,8 @@ static nk_err_t Printnum_impl(struct mosquitto_Printnum *self, const struct mosq
     if (req->value1 == -1)
         return NK_EOK;
     fprintf(stderr, "[ShowApp] Recieved number: %d, %d, %d\n", req->value1, req->value2, req->value3);
-    // if (req->value1 == STOP || motor.is_stopped())
-        // motor.do_instruction(req->value1, req->value2, req->value3);
+    if (req->value1 == STOP || motor.is_stopped())
+        motor.do_instruction(req->value1, req->value2, req->value3);
     return NK_EOK;
 }
 
@@ -91,7 +91,7 @@ int main(void)
         if (nk_transport_reply(&transport.base, &res.base_, &res_arena) != NK_EOK)
             fprintf(stderr, "nk_transport_reply error\n");
 
-        // motor.run();
+        motor.run();
 
         // fprintf(stderr, "Motor is running\n");
     }

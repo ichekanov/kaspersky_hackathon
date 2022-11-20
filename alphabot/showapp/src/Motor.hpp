@@ -16,7 +16,6 @@
 #define HW_MODULE_CFG "raspberry_pi4b.default"
 
 #define STOP 0
-#define STOP 0
 #define STRAIGHT 1
 #define TURN 2
 
@@ -139,6 +138,9 @@ int Motor::begin()
     this->stop();
     this->stop_signal = KnGetMSecSinceStart();
     this->initialized = true;
+
+    this->do_instruction(STRAIGHT, 1000, 100);
+
     fprintf(stderr, "Test finished.\n");
     return EXIT_SUCCESS;
 }
@@ -167,7 +169,7 @@ void Motor::straight(int time, int speed)
 {
     if (!this->initialized)
     {
-        fprintf(stderr, "Not initialized.\n");
+        fprintf(stderr, "Not initialized [straight].\n");
         return;
     }
 
@@ -198,7 +200,7 @@ void Motor::turn(int time, int speed)
 {
     if (!this->initialized)
     {
-        fprintf(stderr, "Not initialized.\n");
+        fprintf(stderr, "Not initialized [turn].\n");
         return;
     }
     if (speed > 0) // turn left
@@ -228,7 +230,7 @@ void Motor::stop()
 {
     if (!this->initialized)
     {
-        fprintf(stderr, "Not initialized.\n");
+        fprintf(stderr, "Not initialized [stop].\n");
         return;
     }
 
@@ -247,6 +249,10 @@ void Motor::run()
     if (KnGetMSecSinceStart() > this->stop_signal && !this->stopped)
     {
         this->stop();
+    }
+    if (KnGetMSecSinceStart() < this->stop_signal && !this->stopped && !(KnGetMSecSinceStart()%100))
+    {
+        fprintf(stderr, "Motor running: %d %d", KnGetMSecSinceStart(), this->stop_signal);
     }
 }
 

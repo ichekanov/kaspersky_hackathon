@@ -173,19 +173,20 @@ void Subscriber::run_forever(int timeout, int max_packets)
     while (true)
     {
         // this->loop(timeout, max_packets);
-        // if (!this->instructions.empty() && KnGetMSecSinceStart() > this->next_execution)
-        // {
-        //     auto instruction = this->instructions.front();
-        //     this->instructions.pop_front();
-        //     this->next_execution = KnGetMSecSinceStart() + get<1>(instruction);
-        //     this->execute_instruction(get<0>(instruction), get<1>(instruction), get<2>(instruction));
-        // }
-        // if (this->instructions.empty() && flag_auto_on && KnGetMSecSinceStart() > this->next_execution)
-        // {
-        //     this->flag_auto_on = false;
-        //     this->execute_instruction(STOP, 0, 0);
-        // }
-        this->execute_instruction(-1, 0, 0);
+        if (!this->instructions.empty() && KnGetMSecSinceStart() > this->next_execution)
+        {
+            auto instruction = this->instructions.front();
+            this->instructions.pop_front();
+            this->next_execution = KnGetMSecSinceStart() + get<1>(instruction);
+            this->execute_instruction(get<0>(instruction), get<1>(instruction), get<2>(instruction));
+        }
+        else if (this->instructions.empty() && flag_auto_on && KnGetMSecSinceStart() > this->next_execution)
+        {
+            this->flag_auto_on = false;
+            this->execute_instruction(STOP, 0, 0);
+        }
+        else
+            this->execute_instruction(-1, 0, 0);
     }
 }
 
