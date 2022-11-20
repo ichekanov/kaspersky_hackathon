@@ -70,28 +70,6 @@ int Motor::begin()
 
     fprintf(stderr, "Start GPIO_output test.\n");
 
-    /**
-     * Initialize the board support package (BSP) driver and set configuration
-     * for GPIO pins. It is required for stdout by UART.
-     */
-    /*rc = BspInit(NULL);
-    if (rc != BSP_EOK)
-    {
-        fprintf(stderr, "Failed to initialize BSP, error code: %d.\n", RC_GET_CODE(rc));
-        fprintf(stderr, "Test failed.\n");
-        return EXIT_FAILURE;
-    }
-    rc = BspSetConfig(HW_MODULE_NAME, HW_MODULE_CFG);
-    if (rc != rcOk)
-    {
-        fprintf(stderr,
-                "Failed to set mux configuration for %s module, "
-                "error code: %d.\n",
-                HW_MODULE_NAME, RC_GET_CODE(rc));
-        fprintf(stderr, "Test failed.\n");
-        return EXIT_FAILURE;
-    }
-	*/
     /* Initialize the GPIO. */
     rc = GpioInit();
     if (rcOk != rc)
@@ -139,7 +117,9 @@ int Motor::begin()
     this->stop_signal = KnGetMSecSinceStart();
     this->initialized = true;
 
-    this->do_instruction(STRAIGHT, 1000, 100);
+    this->do_instruction(TURN, 1000, 100);
+    sleep(1);
+    this->stop();
 
     fprintf(stderr, "Test finished.\n");
     return EXIT_SUCCESS;
@@ -173,7 +153,7 @@ void Motor::straight(int time, int speed)
         return;
     }
 
-    if (speed < 0) // move backward
+    if (speed > 0) // move forward
     {
         GpioOut(this->handle, this->pin1, GPIO_VALUE_HIGH);
         GpioOut(this->handle, this->pin2, GPIO_VALUE_LOW);
@@ -182,7 +162,7 @@ void Motor::straight(int time, int speed)
         GpioOut(this->handle, this->pin4, GPIO_VALUE_HIGH);
         GpioOut(this->handle, this->enB, GPIO_VALUE_HIGH);
     }
-    else // move forward
+    else // move backward
     {
         GpioOut(this->handle, this->pin1, GPIO_VALUE_LOW);
         GpioOut(this->handle, this->pin2, GPIO_VALUE_HIGH);
@@ -203,7 +183,7 @@ void Motor::turn(int time, int speed)
         fprintf(stderr, "Not initialized [turn].\n");
         return;
     }
-    if (speed > 0) // turn left
+    if (speed < 0) // turn right
     {
         GpioOut(this->handle, this->pin1, GPIO_VALUE_LOW);
         GpioOut(this->handle, this->pin2, GPIO_VALUE_HIGH);
@@ -212,7 +192,7 @@ void Motor::turn(int time, int speed)
         GpioOut(this->handle, this->pin4, GPIO_VALUE_HIGH);
         GpioOut(this->handle, this->enB, GPIO_VALUE_HIGH);
     }
-    else // turn right
+    else // turn left
     {
         GpioOut(this->handle, this->pin1, GPIO_VALUE_HIGH);
         GpioOut(this->handle, this->pin2, GPIO_VALUE_LOW);
@@ -233,7 +213,6 @@ void Motor::stop()
         fprintf(stderr, "Not initialized [stop].\n");
         return;
     }
-
     GpioOut(this->handle, this->pin1, GPIO_VALUE_LOW);
     GpioOut(this->handle, this->pin2, GPIO_VALUE_LOW);
     GpioOut(this->handle, this->enA, GPIO_VALUE_LOW);
@@ -252,7 +231,7 @@ void Motor::run()
     }
     if (KnGetMSecSinceStart() < this->stop_signal && !this->stopped && !(KnGetMSecSinceStart()%100))
     {
-        fprintf(stderr, "Motor running: %d %d", KnGetMSecSinceStart(), this->stop_signal);
+        fprintf(stderr, "Motor running, %dms left \n", this->stop_signal-KnGetMSecSinceStart());
     }
 }
 
