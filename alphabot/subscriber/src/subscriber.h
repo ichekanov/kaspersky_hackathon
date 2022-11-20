@@ -21,7 +21,7 @@ class Subscriber : public mosqpp::mosquittopp
     void on_message(const struct mosquitto_message *message) override;
     void on_subscribe(__rtl_unused int mid, __rtl_unused int qos_count, __rtl_unused const int *granted_qos) override;
     void run_forever(int timeout, int max_packets);
-    std::pair<double, double> getBotCoordinates(json &cmd);
+    std::pair<double, double> getBotCoordinates(const json &cmd);
 
   private:
     bool flag_auto_on;
