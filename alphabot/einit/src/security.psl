@@ -553,3 +553,13 @@ response src=kl.drivers.GPIO, dst=mosquitto.Subscriber
 {
 grant()
 }
+
+request src=mosquitto.Showapp, dst=kl.drivers.BSP
+{
+    grant()
+}
+
+response src=kl.drivers.BSP, dst=mosquitto.Showapp
+{
+    grant()
+}

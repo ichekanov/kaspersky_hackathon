@@ -82,7 +82,6 @@ int Motor::begin()
         fprintf(stderr, "Test failed.\n");
         return EXIT_FAILURE;
     }
-    */
     rc = BspSetConfig(HW_MODULE_NAME, HW_MODULE_CFG);
     if (rc != rcOk)
     {
@@ -93,7 +92,7 @@ int Motor::begin()
         fprintf(stderr, "Test failed.\n");
         return EXIT_FAILURE;
     }
-
+	*/
     /* Initialize the GPIO. */
     rc = GpioInit();
     if (rcOk != rc)
