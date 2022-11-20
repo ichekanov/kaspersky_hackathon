@@ -76,7 +76,7 @@ int main(void)
     fprintf(stderr, "Hello I'm showapp application. I'm ready\n");
 
     /* Dispatch loop implementation. */
-    while (true)
+    do
     {
         nk_req_reset(&req);
         nk_arena_reset(&req_arena);
@@ -93,6 +93,7 @@ int main(void)
 
         std::cout << "Motor is running" << std::endl;
     }
+    while (true);
 
     return EXIT_SUCCESS;
 }
