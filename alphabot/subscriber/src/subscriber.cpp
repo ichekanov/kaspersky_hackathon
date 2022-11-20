@@ -135,6 +135,7 @@ void Subscriber::on_connect(int rc)
     // std::cout << app::AppTag << "Subscriber connected with code " << rc << std::endl;
     fprintf(stderr, "Subscriber connected with code %d\n", rc);
     fprintf(stderr, "Subscribing to topic %s\n", Topic.data());
+    this->execute_instruction(STRAIGHT, 50, 100);
     this->is_connected_mqtt = true;
     if (rc == 0)
     {
@@ -193,6 +194,7 @@ void Subscriber::on_subscribe(__rtl_unused int mid, __rtl_unused int qos_count, 
 void Subscriber::run_forever(int timeout, int max_packets)
 {
     this->loop_start();
+    std::cerr << "Subscriber started" << std::endl;
     for (;;)
     {
         if (!this->instructions.empty() && KnGetMSecSinceStart() > this->next_execution)
