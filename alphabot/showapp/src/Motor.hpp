@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <sys/cdefs.h>
 #include <unistd.h>
+#include <iostream>
 
 #define HW_MODULE_NAME "gpio0"
 #define HW_MODULE_CFG "raspberry_pi4b.default"
