@@ -510,3 +510,25 @@ response src = kl.VfsSdCardFs, dst = kl.Ntpd
 {
     grant()
 }
+
+execute src=Einit, dst=kl.drivers.GPIO
+{
+grant()
+}
+request src=mosquitto.Showapp, dst=kl.drivers.GPIO
+{
+grant()
+}
+response src=kl.drivers.GPIO, dst=mosquitto.Showapp
+{
+grant()
+}
+
+request src=mosquitto.Subscriber, dst=kl.drivers.GPIO
+{
+grant()
+}
+response src=kl.drivers.GPIO, dst=mosquitto.Subscriber
+{
+grant()
+}

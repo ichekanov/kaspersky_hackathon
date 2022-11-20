@@ -39,7 +39,7 @@ static nk_err_t Printnum_impl(struct mosquitto_Printnum *self, const struct mosq
                               struct nk_arena *res_arena)
 {
     // fprintf(stderr, "[ShowApp] Recieved number: %d, %d, %d\n", req->value1, req->value2, req->value3);
-    std::cout << "[ShowApp] Recieved number: " << req->value1 << ", " << req->value2 << ", " << req->value3 << std::endl;
+    std::cerr << "[ShowApp] Recieved number: " << req->value1 << ", " << req->value2 << ", " << req->value3 << std::endl;
     // if (req->value1 == STOP || motor.is_stopped())
         // motor.do_instruction(req->value1, req->value2, req->value3);
     return NK_EOK;

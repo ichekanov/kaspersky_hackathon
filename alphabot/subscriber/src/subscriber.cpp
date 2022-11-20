@@ -21,7 +21,7 @@ using namespace std::literals;
 using namespace std;
 using json = nlohmann::json;
 
-constexpr auto Topic = "abot/command"sv;
+constexpr auto Topic = "abot/command2"sv;
 
 tuple<int, int, int> cmdAuto(const json &cmd)
 {
@@ -125,6 +125,7 @@ void Subscriber::execute_instruction(int cmd, int duration, int speed)
     req.value2 = duration;
     req.value3 = speed;
     mosquitto_Printnum_Printnum(&proxy.base, &req, NULL, &res, NULL);
+    std::cerr << "message sent" << std::endl;
 }
 
 void Subscriber::on_message(const struct mosquitto_message *message)

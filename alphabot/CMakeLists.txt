@@ -70,6 +70,6 @@ set(VULN_COMPILER_FLAGS "\
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${VULN_COMPILER_FLAGS}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${VULN_COMPILER_FLAGS}")
 
-add_subdirectory (subscriber)
 add_subdirectory (showapp)
+add_subdirectory (subscriber)
 add_subdirectory (einit)
