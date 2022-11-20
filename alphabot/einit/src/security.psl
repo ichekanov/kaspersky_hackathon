@@ -282,7 +282,7 @@ response src = mosquitto.Subscriber, dst = mosquitto.Showapp
     grant()
 }
 
-response src = mosquitto.Showapp, dst = mosquitto.Subsrcriber
+response src = mosquitto.Showapp, dst = mosquitto.Subscriber
 {
     grant()
 }
