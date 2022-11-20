@@ -1,6 +1,7 @@
 #include "subscriber.h"
 #include "general.h"
 #include "json.hpp"
+#include <cmath>
 #include <coresrv/nk/transport-kos.h>
 #include <coresrv/sl/sl_api.h>
 #include <coresrv/time/time_api.h>
@@ -16,6 +17,8 @@
 #define TURN 2
 #define SPEED 100
 #define CALIBRATION_DURATION 3000
+#define PI 3.14159265
+#define ROTGRADPERSEC 180.0
 
 using namespace std::literals;
 using namespace std;
@@ -23,62 +26,87 @@ using json = nlohmann::json;
 
 constexpr auto Topic = "abot/command2"sv;
 
-tuple<int, int, int> cmdAuto(const json &cmd)
+double calibration()
 {
-    cout << "markers_screen" << endl;
-    for (int i = 0; i < cmd["markers_screen"].size(); ++i)
+    // TODO: REMOVE!
+    return 0;
+}
+
+double vectorAngleAbsolute(double x1, double y1, double x2, double y2)
+{
+    return atan2(y2 - y1, x2 - x1) * 180 / PI;
+}
+
+double angleToRotate(double startAngle, double x1, double y1, double x2, double y2)
+{
+    double directionAngle = vectorAngleAbsolute(x1, y1, x2, y2);
+    return directionAngle - startAngle;
+}
+
+list<tuple<int, int, int>> getCommands(json cmd)
+{
+    double x1 = stod(string(cmd["robot_floor"][0]["x"])), y1 = stod(string(cmd["robot_floor"][0]["y"]));
+    double startAngle = calibration();
+
+    list<tuple<int, int, int>> res;
+    for (int i = 0; i < cmd["targets_floor"].size(); ++i)
     {
-        json point = cmd["markers_screen"][i];
-        cout << point["id"] << " " << point["x"] << " " << point["y"] << endl;
+        double x2 = stod(string(cmd["targets_floor"][i]["x"])), y2 = stod(string(cmd["targets_floor"][i]["y"]));
+        double distance = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+        double rotAngle = angleToRotate(startAngle, x1, y1, x2, y2);
+        int rotTime = int((abs(rotAngle) / ROTGRADPERSEC) * 1000); // в милисекундах
+
+        // TODO: Не перепутаны ли знаки
+        res.push_back(make_tuple(TURN, rotTime, (rotAngle > 0 ? ROTGRADPERSEC : -ROTGRADPERSEC)));
+        res.push_back(make_tuple(STRAIGHT, distance * 100000 / (SPEED), SPEED));
+
+        startAngle = vectorAngleAbsolute(x1, y1, x2, y2);
+        x1 = x2;
+        y1 = y2;
     }
-    cout << "markers_floor" << endl;
-    for (int i = 0; i < cmd["markers_floor"].size(); ++i)
-    {
-        json point = cmd["markers_floor"][i];
-        cout << point["id"] << " " << point["x"] << " " << point["y"] << endl;
-    }
-    cout << "targets_screen" << endl;
-    for (int i = 0; i < cmd["targets_screen"].size(); ++i)
-    {
-        json point = cmd["targets_screen"][i];
-        cout << point["id"] << " " << point["x"] << " " << point["y"] << endl;
-    }
-    cout << "robot_screen" << endl;
-    for (int i = 0; i < cmd["robot_screen"].size(); ++i)
-    {
-        json point = cmd["robot_screen"][i];
-        cout << point["id"] << " " << point["x"] << " " << point["y"] << endl;
-    }
+    return res;
 }
 
-tuple<int, int, int> cmdFwd(const json &cmd)
+list<tuple<int, int, int>> cmdFwd(const json &cmd)
 {
-    return make_tuple(STRAIGHT, int(stod(string(cmd["val"])) * 1000), SPEED);
+    list<tuple<int, int, int>> a;
+    a.push_back(make_tuple(STRAIGHT, int(stod(string(cmd["val"])) * 1000), SPEED));
+    return a;
 }
 
-tuple<int, int, int> cmdBck(const json &cmd)
+list<tuple<int, int, int>> cmdBck(const json &cmd)
 {
-    return make_tuple(STRAIGHT, int(stod(string(cmd["val"])) * 1000), -SPEED);
+    list<tuple<int, int, int>> a;
+    a.push_back(make_tuple(STRAIGHT, int(stod(string(cmd["val"])) * 1000), -SPEED));
+    return a;
 }
 
-tuple<int, int, int> cmdLft(const json &cmd)
+list<tuple<int, int, int>> cmdLft(const json &cmd)
 {
-    return make_tuple(TURN, int(stod(string(cmd["val"])) * 1000), SPEED);
+    list<tuple<int, int, int>> a;
+    a.push_back(make_tuple(TURN, int(stod(string(cmd["val"])) * 1000), SPEED));
+    return a;
 }
 
-tuple<int, int, int> cmdRht(const json &cmd)
+list<tuple<int, int, int>> cmdRht(const json &cmd)
 {
-    return make_tuple(TURN, int(stod(string(cmd["val"])) * 1000), -SPEED);
+    list<tuple<int, int, int>> a;
+    a.push_back(make_tuple(TURN, int(stod(string(cmd["val"])) * 1000), -SPEED));
+    return a;
 }
 
-tuple<int, int, int> cmdStp(const json &cmd)
+list<tuple<int, int, int>> cmdStp(const json &cmd)
 {
-    return make_tuple(STOP, 0, 0);
+    list<tuple<int, int, int>> a;
+    a.push_back(make_tuple(STOP, 0, 0));
+    return a;
 }
 
-tuple<int, int, int> parseJsonManualCommand(const json &cmd)
+list<tuple<int, int, int>> parseJsonManualCommand(const json &cmd)
 {
-    if (cmd["cmd"] == "forward")
+    if (cmd["cmd"] == "auto")
+        return getCommands(cmd);
+    else if (cmd["cmd"] == "forward")
         return cmdFwd(cmd);
     else if (cmd["cmd"] == "back")
         return cmdBck(cmd);
@@ -142,9 +170,8 @@ void Subscriber::on_message(const struct mosquitto_message *message)
         {
             if (flag_auto_on)
                 flag_auto_on = false;
-            tuple<int, int, int> answer = parseJsonManualCommand(cmd);
-            // std::cout << app::AppTag << "Sending command: " << get<0>(answer) << " " << get<1>(answer) << " " <<
-            // get<2>(answer) << std::endl;
+            auto instruction = parseJsonManualCommand(cmd);
+            tuple<int, int, int> answer = get<0>(instruction);
             fprintf(stderr, "Sending command: %d %d %d\n", get<0>(answer), get<1>(answer), get<2>(answer));
             this->execute_instruction(get<0>(answer), get<1>(answer), get<2>(answer));
         }
@@ -157,7 +184,7 @@ void Subscriber::on_message(const struct mosquitto_message *message)
         }
         if (flag_auto_on && KnGetMSecSinceStart() - auto_started > CALIBRATION_DURATION)
         {
-            // this->instructions = generateInstructions(beginning_coordinates, getBotCoordinates(cmd));
+            this->instructions = parseJsonManualCommand(cmd);
             auto_started += 60 * 60 * 1000;
         }
     }
@@ -167,31 +194,29 @@ void Subscriber::on_subscribe(__rtl_unused int mid, __rtl_unused int qos_count, 
 {
     // std::cout << app::AppTag << "Subscription succeeded." << std::endl;
     fprintf(stderr, "Subscription succeeded.\n");
-    
 }
 
 void Subscriber::run_forever(int timeout, int max_packets)
 {
-    this->loop_start();
+    // this->loop_start();
     while (true)
     {
-        // if (!this->instructions.empty() && KnGetMSecSinceStart() > this->next_execution)
-        // {
-        //     auto instruction = this->instructions.front();
-        //     this->instructions.pop_front();
-        //     this->next_execution = KnGetMSecSinceStart() + get<1>(instruction);
-        //     this->execute_instruction(get<0>(instruction), get<1>(instruction), get<2>(instruction));
-        // }
-        // else if (this->instructions.empty() && flag_auto_on && KnGetMSecSinceStart() > this->next_execution)
-        // {
-        //     this->flag_auto_on = false;
-        //     this->execute_instruction(STOP, 0, 0);
-        // }
-        // else 
-        if (KnGetMSecSinceStart()%10 == 0)
+        if (!this->instructions.empty() && KnGetMSecSinceStart() > this->next_execution)
+        {
+            auto instruction = this->instructions.front();
+            this->instructions.pop_front();
+            this->next_execution = KnGetMSecSinceStart() + get<1>(instruction);
+            this->execute_instruction(get<0>(instruction), get<1>(instruction), get<2>(instruction));
+        }
+        else if (this->instructions.empty() && flag_auto_on && KnGetMSecSinceStart() > this->next_execution)
+        {
+            this->flag_auto_on = false;
+            this->execute_instruction(STOP, 0, 0);
+        }
+        else if (KnGetMSecSinceStart() % 10 == 0)
             this->execute_instruction(-1, 0, 0);
-            
-        // this->loop();
+
+        this->loop();
     }
 }
 
