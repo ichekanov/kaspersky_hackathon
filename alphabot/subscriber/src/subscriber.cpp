@@ -18,7 +18,7 @@
 #define SPEED 100
 #define CALIBRATION_DURATION 3000
 #define PI 3.14159265
-#define ROTGRADPERSEC 180.0
+#define ROTGRADPERSEC 360.0
 
 using namespace std::literals;
 using namespace std;
@@ -43,7 +43,7 @@ double angleToRotate(double startAngle, double x1, double y1, double x2, double 
     return directionAngle - startAngle;
 }
 
-list<tuple<int, int, int>> getCommands(json cmd)
+list<tuple<int, int, int>> getCommands(const json &cmd)
 {
     double x1 = stod(string(cmd["robot_floor"][0]["x"])), y1 = stod(string(cmd["robot_floor"][0]["y"]));
     double startAngle = calibration();
@@ -124,10 +124,11 @@ Subscriber::Subscriber(const char *id, const char *host, int port) : mosquittopp
 {
     // std::cout << app::AppTag << "Connecting to MQTT Broker with address " << host << " and port " << port <<
     // std::endl;
-    const int keepAlive = 60;
+    const int keepAlive = 10;
     connect(host, port, keepAlive);
     fprintf(stderr, "Connecting to MQTT Broker with address %s and port %d\n", host, port);
     this->is_connected_mqtt = false;
+    this->
 }
 
 void Subscriber::on_connect(int rc)
@@ -200,7 +201,6 @@ void Subscriber::on_subscribe(__rtl_unused int mid, __rtl_unused int qos_count, 
 
 void Subscriber::run_forever(int timeout, int max_packets)
 {
-    while (!this->is_connected_mqtt) {}   
     this->loop_start();
     while (true)
     {
@@ -219,8 +219,11 @@ void Subscriber::run_forever(int timeout, int max_packets)
         else if (KnGetMSecSinceStart() % 10 == 0)
             this->execute_instruction(-1, 0, 0);
 
-        // if (KnGetMSecSinceStart()%100 == 0)
-            // this->loop();
+        if (KnGetMSecSinceStart() % 100 == 0)
+        {
+            this->loop();
+            std::cerr << "loop" << std::endl;
+        }
     }
 }
 
