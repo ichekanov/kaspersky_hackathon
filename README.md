@@ -1,4 +1,5 @@
 # Kaspersky hackathon 2022
+![IMAGE 2022-11-20 18:27:33](https://user-images.githubusercontent.com/78589729/202910718-4e74e58d-f974-40f8-a66e-dc71e65f08d8.jpg)
 
 ## Квалификационный этап
 
@@ -29,3 +30,6 @@
 - [Созинов Кирилл](https://github.com/KirillSozin)
 - [Торопин Иван](https://github.com/Lhesnor)
 - [Чеканов Иван](https://github.com/ichekanov)
+
+## Лицензия 
+[**MIT License**](LICENSE)
