@@ -40,8 +40,8 @@ static nk_err_t Printnum_impl(struct mosquitto_Printnum *self, const struct mosq
 {
     // fprintf(stderr, "[ShowApp] Recieved number: %d, %d, %d\n", req->value1, req->value2, req->value3);
     std::cout << "[ShowApp] Recieved number: " << req->value1 << ", " << req->value2 << ", " << req->value3 << std::endl;
-    if (req->value1 == STOP || motor.is_stopped())
-        motor.do_instruction(req->value1, req->value2, req->value3);
+    // if (req->value1 == STOP || motor.is_stopped())
+        // motor.do_instruction(req->value1, req->value2, req->value3);
     return NK_EOK;
 }
 
@@ -71,7 +71,7 @@ int main(void)
     mosquitto_Showapp_entity entity;
     mosquitto_Showapp_entity_init(&entity, &component);
 
-    motor.begin();
+    // motor.begin();
 
     fprintf(stderr, "Hello I'm showapp application. I'm ready\n");
 
@@ -89,7 +89,7 @@ int main(void)
         if (nk_transport_reply(&transport.base, &res.base_, &res_arena) != NK_EOK)
             fprintf(stderr, "nk_transport_reply error\n");
 
-        motor.run();
+        // motor.run();
 
         std::cout << "Motor is running" << std::endl;
     }
