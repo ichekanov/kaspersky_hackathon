@@ -24,6 +24,7 @@
 
 ## Команда
 
+Название: **«Мысли Жака Фреско»**
 - [Абрамов Илья](https://github.com/Eagle-008)
 - [Созинов Кирилл](https://github.com/KirillSozin)
 - [Торопин Иван](https://github.com/Lhesnor)
