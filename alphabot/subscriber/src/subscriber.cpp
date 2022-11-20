@@ -124,16 +124,18 @@ Subscriber::Subscriber(const char *id, const char *host, int port) : mosquittopp
 {
     // std::cout << app::AppTag << "Connecting to MQTT Broker with address " << host << " and port " << port <<
     // std::endl;
-    fprintf(stderr, "Connecting to MQTT Broker with address %s and port %d\n", host, port);
     const int keepAlive = 60;
-
     connect(host, port, keepAlive);
+    fprintf(stderr, "Connecting to MQTT Broker with address %s and port %d\n", host, port);
+    this->is_connected_mqtt = false;
 }
 
 void Subscriber::on_connect(int rc)
 {
     // std::cout << app::AppTag << "Subscriber connected with code " << rc << std::endl;
     fprintf(stderr, "Subscriber connected with code %d\n", rc);
+    fprintf(stderr, "Subscribing to topic %s\n", Topic.data());
+    this->is_connected_mqtt = true;
     if (rc == 0)
     {
         subscribe(NULL, Topic.data());
@@ -198,6 +200,7 @@ void Subscriber::on_subscribe(__rtl_unused int mid, __rtl_unused int qos_count, 
 
 void Subscriber::run_forever(int timeout, int max_packets)
 {
+    while (!this->is_connected_mqtt()) {}   
     this->loop_start();
     while (true)
     {
@@ -216,7 +219,8 @@ void Subscriber::run_forever(int timeout, int max_packets)
         else if (KnGetMSecSinceStart() % 10 == 0)
             this->execute_instruction(-1, 0, 0);
 
-        this->loop();
+        // if (KnGetMSecSinceStart()%100 == 0)
+            // this->loop();
     }
 }
 

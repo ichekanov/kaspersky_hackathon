@@ -29,6 +29,7 @@ class Subscriber : public mosqpp::mosquittopp
     rtl_size_t next_execution;
     std::pair<double, double> beginning_coordinates;
     std::list<std::tuple<int, int, int>> instructions;
+    bool is_connected_mqtt;
 
     void execute_instruction(int value1, int value2, int value3);
 };
