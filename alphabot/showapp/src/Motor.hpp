@@ -145,6 +145,7 @@ int Motor::begin()
 
 void Motor::do_instruction(int type, int time, int speed = 20)
 {
+    std::cout << "do_instruction: " << type << " " << time << " " << speed << std::endl;
     switch (type)
     {
     case STOP:

@@ -131,6 +131,7 @@ void Subscriber::on_message(const struct mosquitto_message *message)
 {
     if (Topic == message->topic)
     {
+        std::cout << app::AppTag << "Received message: " << message->payload << std::endl;
         const std::string msg_string(static_cast<const char *>(message->payload));
         json cmd = json::parse(msg_string);
 
