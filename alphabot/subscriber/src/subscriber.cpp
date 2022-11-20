@@ -94,8 +94,7 @@ tuple<int, int, int> parseJsonManualCommand(const json &cmd)
 
 Subscriber::Subscriber(const char *id, const char *host, int port) : mosquittopp(id)
 {
-    // std::cout << app::AppTag << "Connecting to MQTT Broker with address " << host << " and port " << port <<
-    // std::endl;
+    // std::cout << app::AppTag << "Connecting to MQTT Broker with address " << host << " and port " << port << std::endl;
     fprintf(stderr, "Connecting to MQTT Broker with address %s and port %d\n", host, port);
     const int keepAlive = 60;
 
@@ -143,8 +142,7 @@ void Subscriber::on_message(const struct mosquitto_message *message)
             if (flag_auto_on)
                 flag_auto_on = false;
             tuple<int, int, int> answer = parseJsonManualCommand(cmd);
-            // std::cout << app::AppTag << "Sending command: " << get<0>(answer) << " " << get<1>(answer) << " " <<
-            // get<2>(answer) << std::endl;
+            // std::cout << app::AppTag << "Sending command: " << get<0>(answer) << " " << get<1>(answer) << " " << get<2>(answer) << std::endl;
             fprintf(stderr, "Sending command: %d %d %d\n", get<0>(answer), get<1>(answer), get<2>(answer));
             this->execute_instruction(get<0>(answer), get<1>(answer), get<2>(answer));
         }
@@ -167,7 +165,6 @@ void Subscriber::on_subscribe(__rtl_unused int mid, __rtl_unused int qos_count, 
 {
     // std::cout << app::AppTag << "Subscription succeeded." << std::endl;
     fprintf(stderr, "Subscription succeeded.\n");
-    
 }
 
 void Subscriber::run_forever(int timeout, int max_packets)
@@ -175,23 +172,21 @@ void Subscriber::run_forever(int timeout, int max_packets)
     this->loop_start();
     while (true)
     {
-        // if (!this->instructions.empty() && KnGetMSecSinceStart() > this->next_execution)
-        // {
-        //     auto instruction = this->instructions.front();
-        //     this->instructions.pop_front();
-        //     this->next_execution = KnGetMSecSinceStart() + get<1>(instruction);
-        //     this->execute_instruction(get<0>(instruction), get<1>(instruction), get<2>(instruction));
-        // }
-        // else if (this->instructions.empty() && flag_auto_on && KnGetMSecSinceStart() > this->next_execution)
-        // {
-        //     this->flag_auto_on = false;
-        //     this->execute_instruction(STOP, 0, 0);
-        // }
-        // else 
-        if (KnGetMSecSinceStart()%10 == 0)
+        // this->loop(timeout, max_packets);
+        if (!this->instructions.empty() && KnGetMSecSinceStart() > this->next_execution)
+        {
+            auto instruction = this->instructions.front();
+            this->instructions.pop_front();
+            this->next_execution = KnGetMSecSinceStart() + get<1>(instruction);
+            this->execute_instruction(get<0>(instruction), get<1>(instruction), get<2>(instruction));
+        }
+        else if (this->instructions.empty() && flag_auto_on && KnGetMSecSinceStart() > this->next_execution)
+        {
+            this->flag_auto_on = false;
+            this->execute_instruction(STOP, 0, 0);
+        }
+        else
             this->execute_instruction(-1, 0, 0);
-            
-        // this->loop();
     }
 }
 

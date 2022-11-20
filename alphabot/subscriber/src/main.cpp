@@ -8,8 +8,7 @@
 #include "general.h"
 #include "subscriber.h"
 
-namespace consts
-{
+namespace consts {
 constexpr const char *DefaultMqttAddress = "10.0.2.2";
 constexpr int DefaultMqttUnencryptedPort = 1883;
 constexpr int PublicationIntervalInSec = 5;
@@ -47,7 +46,9 @@ static int GetBrokerPort()
     }
     catch (const std::invalid_argument &ex)
     {
-        std::cerr << app::AppTag << "Failed to get MQTT broker port: " << ex.what() << "Using default port ("
+        std::cerr << app::AppTag
+                  << "Failed to get MQTT broker port: " << ex.what()
+                  << "Using default port ("
                   << consts::DefaultMqttUnencryptedPort << ")" << std::endl;
         return consts::DefaultMqttUnencryptedPort;
     }
@@ -57,17 +58,15 @@ int main(void)
 {
     if (!wait_for_network())
     {
-        std::cerr << app::AppTag << "Error: Wait for network failed!" << std::endl;
+        std::cerr << app::AppTag << "Error: Wait for network failed!"
+                  << std::endl;
         return EXIT_FAILURE;
-    }
-    else
-    {
-        std::cout << app::AppTag << "Network is ready!" << std::endl;
     }
 
     mosqpp::lib_init();
 
-    auto sub = std::make_unique<Subscriber>("subscriber", GetBrokerAddress().c_str(), GetBrokerPort());
+    auto sub = std::make_unique<Subscriber>(
+        "subscriber", GetBrokerAddress().c_str(), GetBrokerPort());
     if (sub)
     {
         sub->run_forever(-1, 1);
