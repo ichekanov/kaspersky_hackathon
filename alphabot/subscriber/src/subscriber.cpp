@@ -125,7 +125,7 @@ void Subscriber::execute_instruction(int cmd, int duration, int speed)
     req.value2 = duration;
     req.value3 = speed;
     mosquitto_Printnum_Printnum(&proxy.base, &req, NULL, &res, NULL);
-    std::cerr << "message sent" << std::endl;
+    // std::cerr << "message sent" << std::endl;
 }
 
 void Subscriber::on_message(const struct mosquitto_message *message)
@@ -169,7 +169,7 @@ void Subscriber::on_subscribe(__rtl_unused int mid, __rtl_unused int qos_count, 
 
 void Subscriber::run_forever(int timeout, int max_packets)
 {
-    this->loop_forever();
+    this->loop_start();
     while (true)
     {
         // this->loop(timeout, max_packets);
@@ -185,6 +185,7 @@ void Subscriber::run_forever(int timeout, int max_packets)
         //     this->flag_auto_on = false;
         //     this->execute_instruction(STOP, 0, 0);
         // }
+        this->execute_instruction(-1, 0, 0);
     }
 }
 
