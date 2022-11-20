@@ -128,7 +128,6 @@ Subscriber::Subscriber(const char *id, const char *host, int port) : mosquittopp
     connect(host, port, keepAlive);
     fprintf(stderr, "Connecting to MQTT Broker with address %s and port %d\n", host, port);
     this->is_connected_mqtt = false;
-    this->
 }
 
 void Subscriber::on_connect(int rc)
