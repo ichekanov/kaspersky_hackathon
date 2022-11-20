@@ -170,14 +170,14 @@ void Subscriber::on_message(const struct mosquitto_message *message)
 
         if (cmd["cmd"] != "auto")
         {
-            if (flag_auto_on)
-                flag_auto_on = false;
+            if (this->flag_auto_on)
+                this->flag_auto_on = false;
             list<tuple<int, int, int>> instruction = parseJsonManualCommand(cmd);
             tuple<int, int, int> answer = instruction.front();
             fprintf(stderr, "Sending command: %d %d %d\n", get<0>(answer), get<1>(answer), get<2>(answer));
             this->execute_instruction(get<0>(answer), get<1>(answer), get<2>(answer));
         }
-        if (cmd["cmd"] == "auto")
+        if (cmd["cmd"] == "auto" && !this->flag_auto_on)
         {
             this->instructions = parseJsonManualCommand(cmd);
         }
