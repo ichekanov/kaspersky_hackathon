@@ -73,7 +73,7 @@ int main(void)
     mosquitto_Showapp_entity entity;
     mosquitto_Showapp_entity_init(&entity, &component);
 
-    // motor.begin();
+    motor.begin();
 
     fprintf(stderr, "Hello I'm showapp application. I'm ready\n");
 
@@ -93,7 +93,7 @@ int main(void)
 
         // motor.run();
 
-        fprintf(stderr, "Motor is running\n");
+        // fprintf(stderr, "Motor is running\n");
     }
     while (true);
 
