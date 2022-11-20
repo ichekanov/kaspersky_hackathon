@@ -1,4 +1,4 @@
 package mosquitto.Printnum
 interface {
-	Printnum(in UInt32 value1, in UInt32 value2, in UInt32 value3);
+	Printnum(in SInt32 value1, in SInt32 value2, in SInt32 value3);
 }
