@@ -4,13 +4,13 @@
 #include <bsp/bsp.h>
 #include <coresrv/time/time_api.h>
 #include <gpio/gpio.h>
+#include <iostream>
 #include <rtl/countof.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/cdefs.h>
 #include <unistd.h>
-#include <iostream>
 
 #define HW_MODULE_NAME "gpio0"
 #define HW_MODULE_CFG "raspberry_pi4b.default"
@@ -229,9 +229,9 @@ void Motor::run()
     {
         this->stop();
     }
-    if (KnGetMSecSinceStart() < this->stop_signal && !this->stopped && !(KnGetMSecSinceStart()%100))
+    if (KnGetMSecSinceStart() < this->stop_signal && !this->stopped && !(KnGetMSecSinceStart() % 100))
     {
-        fprintf(stderr, "Motor running, %dms left \n", this->stop_signal-KnGetMSecSinceStart());
+        fprintf(stderr, "Motor running, %dms left \n", this->stop_signal - KnGetMSecSinceStart());
     }
 }
 
