@@ -10,7 +10,7 @@
 
 namespace consts
 {
-constexpr const char *DefaultMqttAddress = "10.0.2.2";
+constexpr const char *DefaultMqttAddress = "10.0.2.214";
 constexpr int DefaultMqttUnencryptedPort = 1883;
 constexpr int PublicationIntervalInSec = 5;
 } // namespace consts

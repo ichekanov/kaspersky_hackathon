@@ -177,17 +177,9 @@ void Subscriber::on_message(const struct mosquitto_message *message)
             fprintf(stderr, "Sending command: %d %d %d\n", get<0>(answer), get<1>(answer), get<2>(answer));
             this->execute_instruction(get<0>(answer), get<1>(answer), get<2>(answer));
         }
-        if (cmd["cmd"] == "auto" && !flag_auto_on)
-        {
-            beginning_coordinates = getBotCoordinates(cmd);
-            this->execute_instruction(STRAIGHT, CALIBRATION_DURATION, SPEED);
-            flag_auto_on = true;
-            auto_started = KnGetMSecSinceStart();
-        }
-        if (flag_auto_on && KnGetMSecSinceStart() - auto_started > CALIBRATION_DURATION)
+        if (cmd["cmd"] == "auto")
         {
             this->instructions = parseJsonManualCommand(cmd);
-            auto_started += 60 * 60 * 1000;
         }
     }
 }
