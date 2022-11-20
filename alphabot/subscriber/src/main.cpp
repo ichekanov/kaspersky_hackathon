@@ -67,9 +67,11 @@ int main(void)
 
     mosqpp::lib_init();
 
+    std::cerr << "Creating subscriber" << std::endl;
     auto sub = std::make_unique<Subscriber>("subscriber", GetBrokerAddress().c_str(), GetBrokerPort());
     if (sub)
     {
+        std::cerr << "Subscriber created, entering loop." << std::endl;
         sub->run_forever(-1, 1);
     }
 

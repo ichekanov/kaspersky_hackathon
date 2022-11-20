@@ -201,7 +201,7 @@ void Subscriber::on_subscribe(__rtl_unused int mid, __rtl_unused int qos_count, 
 void Subscriber::run_forever(int timeout, int max_packets)
 {
     this->loop_start();
-    while (true)
+    for (;;)
     {
         if (!this->instructions.empty() && KnGetMSecSinceStart() > this->next_execution)
         {
@@ -221,7 +221,6 @@ void Subscriber::run_forever(int timeout, int max_packets)
         if (KnGetMSecSinceStart() % 100 == 0)
         {
             this->loop();
-            std::cerr << "loop" << std::endl;
         }
     }
 }
