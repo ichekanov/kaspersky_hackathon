@@ -200,7 +200,7 @@ void Subscriber::on_subscribe(__rtl_unused int mid, __rtl_unused int qos_count, 
 
 void Subscriber::run_forever(int timeout, int max_packets)
 {
-    while (!this->is_connected_mqtt()) {}   
+    while (!this->is_connected_mqtt) {}   
     this->loop_start();
     while (true)
     {
