@@ -182,7 +182,7 @@ void Subscriber::run_forever(int timeout = -1, int max_packets = 1)
     }
 }
 
-std::pair<double, double> getBotCoordinates(const json &cmd)
+std::pair<double, double> Subscriber::getBotCoordinates(const json &cmd)
 {
     return make_pair(stod(string(cmd["robot_floor"]["x"])), stod(string(cmd["robot_floor"]["y"])));
 }
