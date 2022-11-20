@@ -75,14 +75,14 @@ int Motor::begin()
      * Initialize the board support package (BSP) driver and set configuration
      * for GPIO pins. It is required for stdout by UART.
      */
-    rc = BspInit(NULL);
+    /*rc = BspInit(NULL);
     if (rc != BSP_EOK)
     {
         fprintf(stderr, "Failed to initialize BSP, error code: %d.\n", RC_GET_CODE(rc));
         fprintf(stderr, "Test failed.\n");
         return EXIT_FAILURE;
     }
-
+    */
     rc = BspSetConfig(HW_MODULE_NAME, HW_MODULE_CFG);
     if (rc != rcOk)
     {

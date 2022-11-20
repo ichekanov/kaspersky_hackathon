@@ -535,6 +535,16 @@ response src=kl.drivers.GPIO, dst=mosquitto.Showapp
 grant()
 }
 
+response src=mosquitto.Showapp, dst=kl.drivers.GPIO
+{
+grant()
+}
+request src=kl.drivers.GPIO, dst=mosquitto.Showapp
+{
+grant()
+}
+
+
 request src=mosquitto.Subscriber, dst=kl.drivers.GPIO
 {
 grant()

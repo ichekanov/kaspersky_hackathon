@@ -32,6 +32,10 @@ entities:
 @INIT_Ntpd_ENTITY_CONNECTIONS@
 
 - name: mosquitto.Showapp
+  connections:
+  - target: kl.drivers.GPIO
+    id: kl.drivers.GPIO
 @INIT_Showapp_ENTITY_CONNECTIONS@
+
 
 @INIT_EXTERNAL_ENTITIES@
