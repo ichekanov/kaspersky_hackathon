@@ -170,8 +170,8 @@ void Subscriber::on_message(const struct mosquitto_message *message)
         {
             if (flag_auto_on)
                 flag_auto_on = false;
-            auto instruction = parseJsonManualCommand(cmd);
-            tuple<int, int, int> answer = get<0>(instruction);
+            list<tuple<int, int, int>> instruction = parseJsonManualCommand(cmd);
+            tuple<int, int, int> answer = instruction.front();
             fprintf(stderr, "Sending command: %d %d %d\n", get<0>(answer), get<1>(answer), get<2>(answer));
             this->execute_instruction(get<0>(answer), get<1>(answer), get<2>(answer));
         }
