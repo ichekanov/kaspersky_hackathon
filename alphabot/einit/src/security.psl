@@ -192,7 +192,7 @@ request src = kl.Ntpd, dst = kl.core.Core
     grant()
 }
 
-response src = klcore.Core, dst = kl.Ntpd
+response src = kl.core.Core, dst = kl.Ntpd
 {
     grant()
 }
