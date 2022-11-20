@@ -161,6 +161,8 @@ void Subscriber::on_message(const struct mosquitto_message *message)
 void Subscriber::on_subscribe(__rtl_unused int mid, __rtl_unused int qos_count, __rtl_unused const int *granted_qos)
 {
     std::cout << app::AppTag << "Subscription succeeded." << std::endl;
+    this->execute_instruction(STRAIGHT, 1000, SPEED);
+    std::cout << app::AppTag << "Motor test done." << std::endl;
 }
 
 void Subscriber::run_forever(int timeout = -1, int max_packets = 1)
