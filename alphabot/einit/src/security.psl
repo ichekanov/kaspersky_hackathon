@@ -282,10 +282,21 @@ response src = mosquitto.Subscriber, dst = mosquitto.Showapp
     grant()
 }
 
-response src = mosquitto.Showapp, dst = mosquitto.Subscriber
+request src = mosquitto.Showapp, dst = mosquitto.Subscriber
 {
     grant()
 }
+
+request src = mosquitto.Subscriber, dst = mosquitto.Showapp
+{
+    grant()
+}
+
+response src = mosquitto.Showapp, dst = mosquitto.Subscriber 
+{
+    grant()
+}
+
 
 /**
  * Allows the tasks with the mosquitto.Subscriber class to send requests
